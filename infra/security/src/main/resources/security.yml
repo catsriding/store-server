@@ -1,0 +1,47 @@
+security:
+  jwt:
+    issuer: https://auth.catsriding.com
+    secret-key: secret@local
+    expires-access-token: 15552000000
+
+---
+####################
+###   🧪 TESTS   ###
+####################
+spring.config.activate.on-profile: test
+
+
+---
+####################
+###   💻 LOCAL   ###
+####################
+spring.config.activate.on-profile: local
+
+security:
+  jwt:
+    secret-key: ${security.jwt.secret}
+    expires-access-token: 15552000000
+
+---
+####################
+###    🛠 DEV    ###
+####################
+spring.config.activate.on-profile: dev
+
+
+---
+####################
+###  📦 Staging  ###
+####################
+spring.config.activate.on-profile: staging
+
+---
+####################
+###   💎 PROD    ###
+####################
+spring.config.activate.on-profile: prod
+
+security:
+  jwt:
+    secret-key: ${security.jwt.secret}
+    expires-access-token: 15552000000

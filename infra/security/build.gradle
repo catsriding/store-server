@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':domain')
+
+    implementation 'com.auth0:java-jwt:4.5.0'
+    implementation 'org.springframework.security:spring-security-core'
+}
+

@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation project(':application')
+    implementation project(':domain')
+    implementation project(':infra:database')
+    implementation project(':infra:security')
+    implementation project(':infra:time')
+    implementation project(':infra:logging')
+    implementation project(':infra:monitoring')
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+bootJar.enabled = true
+jar.enabled = false

@@ -1,0 +1,242 @@
+spring:
+  jpa:
+    open-in-view: false
+    generate-ddl: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+    hibernate:
+      ddl-auto: none
+
+---
+####################
+###   🧪 TESTS   ###
+####################
+spring.config.activate.on-profile: test
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+  h2:
+    console:
+      enabled: true
+
+storage:
+  datasource:
+    writer:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:shared;MODE=MySQL;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
+      username: sa
+      password:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 1100
+      keepalive-time: 30000
+      validation-timeout: 1000
+      max-lifetime: 600000
+      idle-timeout: 300000
+      auto-commit: false
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      pool-name: writer-database-pool
+      data-source-properties:
+        socketTimeout: 3000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+    reader:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:shared;MODE=MySQL;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=TRUE
+      username: sa
+      password:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 1100
+      keepalive-time: 30000
+      validation-timeout: 1000
+      max-lifetime: 600000
+      idle-timeout: 300000
+      auto-commit: false
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      pool-name: reader-database-pool
+      data-source-properties:
+        socketTimeout: 3000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+
+---
+####################
+###   💻 LOCAL   ###
+####################
+spring.config.activate.on-profile: local
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+storage:
+  datasource:
+    writer:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${storage.database.writer.url}
+      username: ${storage.database.writer.username}
+      password: ${storage.database.writer.password}
+      maximum-pool-size: 30
+      minimum-idle: 15
+      connection-timeout: 1100
+      keepalive-time: 30000
+      validation-timeout: 1000
+      max-lifetime: 600000
+      idle-timeout: 300000
+      leak-detection-threshold: 5000
+      auto-commit: false
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+      pool-name: writer-database-pool
+      data-source-properties:
+        socketTimeout: 3000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+    reader:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${storage.database.reader.url}
+      username: ${storage.database.reader.username}
+      password: ${storage.database.reader.password}
+      maximum-pool-size: 30
+      minimum-idle: 15
+      connection-timeout: 1100
+      keepalive-time: 30000
+      validation-timeout: 1000
+      max-lifetime: 600000
+      idle-timeout: 300000
+      leak-detection-threshold: 5000
+      auto-commit: false
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+      pool-name: reader-database-pool
+      data-source-properties:
+        socketTimeout: 3000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+
+---
+####################
+###    🛠 DEV    ###
+####################
+spring.config.activate.on-profile: dev
+
+---
+####################
+###  📦 Staging  ###
+####################
+spring.config.activate.on-profile: staging
+
+---
+####################
+###   💎 PROD    ###
+####################
+spring.config.activate.on-profile: prod
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+storage:
+  datasource:
+    writer:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${storage.database.writer.url}
+      username: ${storage.database.writer.username}
+      password: ${storage.database.writer.password}
+      maximum-pool-size: 30
+      minimum-idle: 15
+      connection-timeout: 3000
+      keepalive-time: 300000
+      validation-timeout: 1000
+      max-lifetime: 600000
+      idle-timeout: 300000
+      leak-detection-threshold: 10000
+      auto-commit: false
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+      pool-name: writer-database-pool
+      data-source-properties:
+        socketTimeout: 3000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+
+    reader:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://${storage.database.reader.url}
+      username: ${storage.database.reader.username}
+      password: ${storage.database.reader.password}
+      maximum-pool-size: 30
+      minimum-idle: 15
+      connection-timeout: 3000
+      keepalive-time: 300000
+      validation-timeout: 1000
+      max-lifetime: 600000
+      idle-timeout: 300000
+      leak-detection-threshold: 10000
+      auto-commit: false
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+      pool-name: reader-database-pool
+      data-source-properties:
+        socketTimeout: 3000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false

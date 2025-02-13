@@ -1,0 +1,54 @@
+spring:
+  profiles:
+    active: test
+
+  config:
+    import:
+      - logging.yml
+      - database.yml
+      - security.yml
+
+---
+####################
+###   🧪 TESTS   ###
+####################
+spring.config.activate.on-profile: test
+
+spring:
+  output:
+    ansi:
+      enabled: always
+
+---
+####################
+###   💻 LOCAL   ###
+####################
+spring.config.activate.on-profile: local
+
+spring:
+  output:
+    ansi:
+      enabled: always
+
+---
+####################
+###    🛠 DEV    ###
+####################
+spring.config.activate.on-profile: dev
+
+spring:
+  output:
+    ansi:
+      enabled: always
+
+---
+####################
+###  📦 Staging  ###
+####################
+spring.config.activate.on-profile: staging
+
+---
+####################
+###   💎 PROD    ###
+####################
+spring.config.activate.on-profile: prod

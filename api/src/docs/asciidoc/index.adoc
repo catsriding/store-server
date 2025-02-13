@@ -1,0 +1,9 @@
+= API Documentation
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 6
+:sectlinks:
+:hardbreaks-option:
+

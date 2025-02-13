@@ -1,0 +1,92 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version '3.4.3' apply(false)
+    id 'io.spring.dependency-management' version '1.1.7' apply(false)
+    id 'org.asciidoctor.jvm.convert' apply(false)
+}
+
+allprojects {
+    group = "${projectGroup}"
+    version = "${applicationVersion}"
+
+    repositories {
+        mavenCentral()
+    }
+
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of("${javaVersion}")
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.asciidoctor.jvm.convert'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+        asciidoctorExt
+    }
+
+    ext {
+        set("snippetsDir", file("build/generated-snippets"))
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+        // Lombok
+        annotationProcessor 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.projectlombok:lombok:1.18.28'
+
+        asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
+    }
+
+    bootJar.enabled = false
+    jar.enabled = true
+
+    tasks.named('test') {
+        outputs.dir snippetsDir
+        useJUnitPlatform {
+            excludeTags("restdocs")
+        }
+    }
+
+    tasks.named("asciidoctor") {
+        dependsOn restDocsTest
+
+        inputs.dir snippetsDir
+        configurations 'asciidoctorExt'
+        baseDirFollowsSourceDir()
+        finalizedBy 'copyDocument'
+    }
+
+    tasks.register('restDocsTest', Test) {
+        group = 'verification'
+        outputs.dir snippetsDir
+        useJUnitPlatform {
+            includeTags("restdocs")
+        }
+
+        finalizedBy 'asciidoctor'
+    }
+
+    tasks.register('copyDocument', Copy) {
+        from file("build/docs/asciidoc/index.html")
+        into file("src/main/resources/static/docs")
+    }
+
+    asciidoctor.doFirst {
+        delete file('src/main/resources/static/docs')
+    }
+
+}
