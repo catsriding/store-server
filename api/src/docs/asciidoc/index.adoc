@@ -9,3 +9,6 @@
 
 == 인증
 include::apis/auth/UserLoginApi.adoc[]
+
+== 상품 관리 API
+include::apis/product/ProductRegistrationApi.adoc[]

@@ -1,0 +1,14 @@
+[[ProductRegistration]]
+=== 상품 등록 API
+상품 등록 API
+
+[source,http,options="nowrap"]
+----
+POST /products HTTP/1.1
+----
+
+==== Request
+operation::product-controller-registration-api-test/docs-product-registration-api[snippets='request-headers,request-fields,http-request']
+
+==== Response
+operation::product-controller-registration-api-test/docs-product-registration-api[snippets='response-headers,response-fields,http-response']
