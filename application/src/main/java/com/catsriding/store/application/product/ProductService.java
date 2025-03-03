@@ -1,7 +1,9 @@
 package com.catsriding.store.application.product;
 
+import com.catsriding.store.application.product.model.ProductDelete;
 import com.catsriding.store.application.product.model.ProductRegistration;
 import com.catsriding.store.application.product.model.ProductUpdate;
+import com.catsriding.store.application.product.result.ProductDeleteResult;
 import com.catsriding.store.application.product.result.ProductRegistrationResult;
 import com.catsriding.store.application.product.result.ProductUpdateResult;
 import com.catsriding.store.domain.product.Product;
@@ -46,4 +48,16 @@ public class ProductService {
         return ProductUpdateResult.from(product);
     }
 
+    public ProductDeleteResult deleteProduct(ProductDelete command) {
+        Product product = productRepository.loadProduct(command.toIdentifier());
+
+        product = product.delete(clockHolder);
+        product = productRepository.save(product);
+
+        log.info("deleteProduct: Successfully deleted product - productId={}, sellerId={}",
+                product.productId().id(),
+                product.sellerId().id());
+
+        return ProductDeleteResult.from(product);
+    }
 }

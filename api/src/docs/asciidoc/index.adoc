@@ -13,3 +13,4 @@ include::apis/auth/UserLoginApi.adoc[]
 == 상품 관리 API
 include::apis/product/ProductRegistrationApi.adoc[]
 include::apis/product/ProductUpdateApi.adoc[]
+include::apis/product/ProductDeleteApi.adoc[]

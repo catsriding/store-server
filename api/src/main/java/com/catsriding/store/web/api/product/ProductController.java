@@ -1,10 +1,13 @@
 package com.catsriding.store.web.api.product;
 
 import com.catsriding.store.application.product.ProductService;
+import com.catsriding.store.application.product.result.ProductDeleteResult;
 import com.catsriding.store.application.product.result.ProductRegistrationResult;
 import com.catsriding.store.application.product.result.ProductUpdateResult;
+import com.catsriding.store.web.api.product.request.ProductDeleteRequest;
 import com.catsriding.store.web.api.product.request.ProductRegistrationRequest;
 import com.catsriding.store.web.api.product.request.ProductUpdateRequest;
+import com.catsriding.store.web.api.product.response.ProductDeleteResponse;
 import com.catsriding.store.web.api.product.response.ProductRegistrationResponse;
 import com.catsriding.store.web.api.product.response.ProductUpdateResponse;
 import com.catsriding.store.web.security.model.CurrentUser;
@@ -13,6 +16,7 @@ import com.catsriding.store.web.shared.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,5 +58,18 @@ public class ProductController {
         ProductUpdateResponse response = ProductUpdateResponse.from(result);
         return ResponseEntity
                 .ok(ApiResponse.success(response, "상품이 성공적으로 수정되었습니다."));
+    }
+
+    @DeleteMapping("/{productId}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public ResponseEntity<?> productDeleteApi(
+            @PathVariable Long productId,
+            @CurrentUser LoginUser user
+    ) {
+        ProductDeleteRequest request = ProductDeleteRequest.from(productId, user);
+        ProductDeleteResult result = service.deleteProduct(request.toCommand());
+        ProductDeleteResponse response = ProductDeleteResponse.from(result);
+        return ResponseEntity
+                .ok(ApiResponse.success(response, "상품이 성공적으로 삭제되었습니다."));
     }
 }

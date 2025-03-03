@@ -1,7 +1,10 @@
 package com.catsriding.store.domain.product;
 
+import static com.catsriding.store.domain.product.ProductStatusType.DELETED;
+
 import com.catsriding.store.domain.product.model.NewProduct;
 import com.catsriding.store.domain.product.model.UpdateProduct;
+import com.catsriding.store.domain.product.spec.ProductUpdatableSpec;
 import com.catsriding.store.domain.product.spec.ProductRegistrationSpec;
 import com.catsriding.store.domain.product.spec.ProductUpdateSpec;
 import com.catsriding.store.domain.shared.ClockHolder;
@@ -77,6 +80,23 @@ public class Product {
                 .deliveryFee(updateProduct.deliveryFee())
                 .status(updateProduct.status())
                 .isDeleted(updateProduct.isDeleted())
+                .updatedAt(clockHolder.now())
+                .createdAt(createdAt)
+                .build();
+    }
+
+    public Product delete(ClockHolder clockHolder) {
+        new ProductUpdatableSpec().check(this);
+
+        return Product.builder()
+                .id(id)
+                .sellerId(sellerId)
+                .name(name)
+                .description(description)
+                .price(price)
+                .deliveryFee(deliveryFee)
+                .status(DELETED)
+                .isDeleted(true)
                 .updatedAt(clockHolder.now())
                 .createdAt(createdAt)
                 .build();
