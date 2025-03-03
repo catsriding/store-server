@@ -4,7 +4,9 @@ import com.catsriding.store.application.product.ProductService;
 import com.catsriding.store.application.product.result.ProductDeleteResult;
 import com.catsriding.store.application.product.result.ProductRegistrationResult;
 import com.catsriding.store.application.product.result.ProductUpdateResult;
+import com.catsriding.store.domain.shared.PagedData;
 import com.catsriding.store.web.api.product.request.ProductDeleteRequest;
+import com.catsriding.store.web.api.product.request.ProductPagedRequest;
 import com.catsriding.store.web.api.product.request.ProductRegistrationRequest;
 import com.catsriding.store.web.api.product.request.ProductUpdateRequest;
 import com.catsriding.store.web.api.product.response.ProductDeleteResponse;
@@ -17,11 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -33,6 +37,19 @@ public class ProductController {
 
     public ProductController(ProductService service) {
         this.service = service;
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public ResponseEntity<?> productPagedApi(
+            @RequestParam int pageNumber,
+            @RequestParam int pageSize,
+            @CurrentUser LoginUser user
+    ) {
+        ProductPagedRequest request = ProductPagedRequest.from(pageNumber, pageSize, user);
+        PagedData<?> pagedData = service.retrievePagedProducts(request.toCond());
+        return ResponseEntity
+                .ok(ApiResponse.success(pagedData, "상품 목록을 성공적으로 조회했습니다."));
     }
 
     @PostMapping

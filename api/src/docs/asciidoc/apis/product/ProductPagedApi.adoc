@@ -1,0 +1,14 @@
+[[ProductPaged]]
+=== 상품 목록 조회 API
+상품 목록 조회 API
+
+[source,http,options="nowrap"]
+----
+GET /products HTTP/1.1
+----
+
+==== Request
+operation::product-controller-paged-api-test/docs-product-paged-api[snippets='request-headers,query-parameters,http-request']
+
+==== Response
+operation::product-controller-paged-api-test/docs-product-paged-api[snippets='response-headers,response-fields,http-response']
