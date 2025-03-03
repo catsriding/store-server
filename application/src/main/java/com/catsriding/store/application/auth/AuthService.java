@@ -77,4 +77,14 @@ public class AuthService {
         throw new LoginFailureException(message);
     }
 
+    public AuthenticatedUser authenticate(String accessToken) {
+        TokenClaims tokenClaims = tokenVerifier.verify(accessToken);
+        AuthenticatedUser authenticatedUser = AuthenticatedUser.from(tokenClaims);
+
+        log.info("authenticate: Successfully authenticated user - userId={}, username={}",
+                authenticatedUser.id(),
+                authenticatedUser.username());
+
+        return authenticatedUser;
+    }
 }
