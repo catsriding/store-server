@@ -1,0 +1,14 @@
+[[ProductDetails]]
+=== 상품 상세 조회 API
+상품 상세 조회 API
+
+[source,http,options="nowrap"]
+----
+GET /products/{productId} HTTP/1.1
+----
+
+==== Request
+operation::product-controller-details-api-test/docs-product-details-api[snippets='request-headers,path-parameters,http-request']
+
+==== Response
+operation::product-controller-details-api-test/docs-product-details-api[snippets='response-headers,response-fields,http-response']

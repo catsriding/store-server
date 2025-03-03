@@ -1,6 +1,8 @@
 package com.catsriding.store.application.product;
 
 import com.catsriding.store.application.product.model.ProductDelete;
+import com.catsriding.store.application.product.result.ProductDetailsResult;
+import com.catsriding.store.domain.product.model.ProductIdentifier;
 import com.catsriding.store.domain.product.model.ProductPageCond;
 import com.catsriding.store.application.product.model.ProductRegistration;
 import com.catsriding.store.application.product.model.ProductUpdate;
@@ -40,6 +42,17 @@ public class ProductService {
                 product.sellerId().id());
 
         return ProductRegistrationResult.from(product);
+    }
+
+    public ProductDetailsResult retrieveProduct(ProductIdentifier cond) {
+        Product product = productRepository.loadProduct(cond);
+
+        log.info("retrieveProduct: Successfully retrieve product details - productId={}, sellerId={}",
+                product.productId().id(),
+                product.sellerId().id()
+        );
+
+        return ProductDetailsResult.from(product);
     }
 
     public ProductUpdateResult updateProduct(ProductUpdate command) {

@@ -2,14 +2,17 @@ package com.catsriding.store.web.api.product;
 
 import com.catsriding.store.application.product.ProductService;
 import com.catsriding.store.application.product.result.ProductDeleteResult;
+import com.catsriding.store.application.product.result.ProductDetailsResult;
 import com.catsriding.store.application.product.result.ProductRegistrationResult;
 import com.catsriding.store.application.product.result.ProductUpdateResult;
 import com.catsriding.store.domain.shared.PagedData;
 import com.catsriding.store.web.api.product.request.ProductDeleteRequest;
+import com.catsriding.store.web.api.product.request.ProductDetailsRequest;
 import com.catsriding.store.web.api.product.request.ProductPagedRequest;
 import com.catsriding.store.web.api.product.request.ProductRegistrationRequest;
 import com.catsriding.store.web.api.product.request.ProductUpdateRequest;
 import com.catsriding.store.web.api.product.response.ProductDeleteResponse;
+import com.catsriding.store.web.api.product.response.ProductDetailsResponse;
 import com.catsriding.store.web.api.product.response.ProductRegistrationResponse;
 import com.catsriding.store.web.api.product.response.ProductUpdateResponse;
 import com.catsriding.store.web.security.model.CurrentUser;
@@ -62,6 +65,19 @@ public class ProductController {
         ProductRegistrationResponse response = ProductRegistrationResponse.from(result);
         return ResponseEntity
                 .ok(ApiResponse.success(response, "상품이 성공적으로 등록되었습니다."));
+    }
+
+    @GetMapping("/{productId}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public ResponseEntity<?> productDetailsApi(
+            @PathVariable Long productId,
+            @CurrentUser LoginUser user
+    ) {
+        ProductDetailsRequest request = ProductDetailsRequest.from(productId, user);
+        ProductDetailsResult result = service.retrieveProduct(request.toCond());
+        ProductDetailsResponse response = ProductDetailsResponse.from(result);
+        return ResponseEntity
+                .ok(ApiResponse.success(response, "상품 정보를 성공적으로 조회했습니다."));
     }
 
     @PutMapping("/{productId}")
