@@ -42,3 +42,6 @@ out/
 
 ### logging ###
 logs/
+
+### docs ###
+**/src/main/resources/static/docs/
