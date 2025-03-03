@@ -2,29 +2,22 @@ package com.catsriding.store.web.api;
 
 import static com.catsriding.store.web.shared.ApiResponse.failure;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 import com.catsriding.store.infra.database.shared.DataNotFoundException;
 import com.catsriding.store.web.shared.InvalidRequestException;
 import com.catsriding.store.web.support.ApiExceptionLogger;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
-public class ApiControllerAdvice {
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest request) {
-        ApiExceptionLogger.logWarning("handleIllegalArgumentException", "", e, request);
-
-        return ResponseEntity
-                .status(INTERNAL_SERVER_ERROR)
-                .body(failure(null, "서버 내부 오류가 발생했습니다. 잠시 후 다시 시도해주세요."));
-    }
+public class ApiExceptionHandler {
 
     @ExceptionHandler(InvalidRequestException.class)
     public ResponseEntity<?> handleInvalidRequestException(InvalidRequestException e, HttpServletRequest request) {
