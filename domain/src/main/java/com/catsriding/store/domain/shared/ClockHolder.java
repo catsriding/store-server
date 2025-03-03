@@ -6,4 +6,5 @@ public interface ClockHolder {
 
     LocalDateTime now();
 
+    long currentTimeMillis();
 }

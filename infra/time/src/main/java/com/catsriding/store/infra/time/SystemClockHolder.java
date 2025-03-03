@@ -13,4 +13,9 @@ public class SystemClockHolder implements ClockHolder {
     public LocalDateTime now() {
         return LocalDateTime.now();
     }
+
+    @Override
+    public long currentTimeMillis() {
+        return System.currentTimeMillis();
+    }
 }

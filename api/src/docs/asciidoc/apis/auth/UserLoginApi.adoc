@@ -1,0 +1,14 @@
+[[UserLogin]]
+=== 로그인 API
+유저 로그인 API
+
+[source,http,options="nowrap"]
+----
+POST /login HTTP/1.1
+----
+
+==== Request
+operation::auth-controller-login-api-test/docs-user-login-api[snippets='request-headers,request-fields,http-request']
+
+==== Response
+operation::auth-controller-login-api-test/docs-user-login-api[snippets='response-headers,response-fields,http-response']

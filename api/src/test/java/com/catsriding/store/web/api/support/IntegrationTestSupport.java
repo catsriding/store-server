@@ -1,10 +1,17 @@
 package com.catsriding.store.web.api.support;
 
+import static com.catsriding.store.domain.user.UserRoleType.ROLE_USER;
+import static com.catsriding.store.domain.user.UserStatusType.ACTIVE;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
+import com.catsriding.store.domain.auth.TokenClaims;
+import com.catsriding.store.domain.auth.TokenProvider;
 import com.catsriding.store.domain.shared.ClockHolder;
+import com.catsriding.store.domain.user.User;
+import com.catsriding.store.domain.user.UserId;
+import com.catsriding.store.domain.user.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,9 +46,13 @@ public abstract class IntegrationTestSupport {
     @Autowired
     protected ObjectMapper objectMapper;
     @Autowired
+    protected TokenProvider tokenProvider;
+    @Autowired
     protected PasswordEncoder passwordEncoder;
     @Autowired
     protected ClockHolder clockHolder;
+    @Autowired
+    protected UserRepository userRepository;
 
     @BeforeEach
     public void setup(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
@@ -56,6 +67,24 @@ public abstract class IntegrationTestSupport {
 
     protected String serialize(Object obj) throws JsonProcessingException {
         return objectMapper.writeValueAsString(obj);
+    }
+
+    protected String userAccessToken(User user) {
+        TokenClaims claims = TokenClaims.from(user.id(), user.username(), user.role().name());
+        return tokenProvider.issue(claims, clockHolder.currentTimeMillis()).accessToken();
+    }
+
+    public User createTestUser() {
+        User user = User.builder()
+                .id(UserId.withoutId())
+                .username("user@test.com")
+                .password(passwordEncoder.encode("test1234"))
+                .role(ROLE_USER)
+                .status(ACTIVE)
+                .createdAt(clockHolder.now())
+                .updatedAt(clockHolder.now())
+                .build();
+        return userRepository.save(user);
     }
 
 }
