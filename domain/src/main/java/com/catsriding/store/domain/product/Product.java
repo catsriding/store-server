@@ -1,7 +1,9 @@
 package com.catsriding.store.domain.product;
 
 import com.catsriding.store.domain.product.model.NewProduct;
+import com.catsriding.store.domain.product.model.UpdateProduct;
 import com.catsriding.store.domain.product.spec.ProductRegistrationSpec;
+import com.catsriding.store.domain.product.spec.ProductUpdateSpec;
 import com.catsriding.store.domain.shared.ClockHolder;
 import com.catsriding.store.domain.user.UserId;
 import java.time.LocalDateTime;
@@ -59,6 +61,24 @@ public class Product {
                 .isDeleted(newProduct.isDeleted())
                 .updatedAt(clockHolder.now())
                 .createdAt(clockHolder.now())
+                .build();
+    }
+
+    public Product update(UpdateProduct updateProduct, ClockHolder clockHolder) {
+        new ProductUpdatableSpec().check(this);
+        new ProductUpdateSpec().check(updateProduct);
+
+        return Product.builder()
+                .id(id)
+                .sellerId(sellerId)
+                .name(updateProduct.name())
+                .description(updateProduct.description())
+                .price(updateProduct.price())
+                .deliveryFee(updateProduct.deliveryFee())
+                .status(updateProduct.status())
+                .isDeleted(updateProduct.isDeleted())
+                .updatedAt(clockHolder.now())
+                .createdAt(createdAt)
                 .build();
     }
 

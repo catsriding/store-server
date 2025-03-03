@@ -1,7 +1,9 @@
 package com.catsriding.store.application.product;
 
 import com.catsriding.store.application.product.model.ProductRegistration;
+import com.catsriding.store.application.product.model.ProductUpdate;
 import com.catsriding.store.application.product.result.ProductRegistrationResult;
+import com.catsriding.store.application.product.result.ProductUpdateResult;
 import com.catsriding.store.domain.product.Product;
 import com.catsriding.store.domain.product.repository.ProductRepository;
 import com.catsriding.store.domain.shared.ClockHolder;
@@ -29,6 +31,19 @@ public class ProductService {
                 product.sellerId().id());
 
         return ProductRegistrationResult.from(product);
+    }
+
+    public ProductUpdateResult updateProduct(ProductUpdate command) {
+        Product product = productRepository.loadProduct(command.toIdentifier());
+
+        product = product.update(command.toUpdateProduct(), clockHolder);
+        product = productRepository.save(product);
+
+        log.info("updateProduct: Successfully updated product - productId={}, sellerId={}",
+                product.productId().id(),
+                product.sellerId().id());
+
+        return ProductUpdateResult.from(product);
     }
 
 }
