@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface ProductOptionRepository {
 
-    ProductOption save(ProductOption productOption);
+    ProductOption saveWithOptionValues(ProductOption productOption);
+
+    ProductOption saveWithoutOptionValues(ProductOption productOption);
+
+    ProductOption loadProductOption(ProductOptionIdentifier identifier);
 
     List<ProductOptionWithValue> loadProductOptions(ProductOptionIdentifier identifier);
 

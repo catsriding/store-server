@@ -126,6 +126,20 @@ public class ProductOption {
         };
     }
 
+    public ProductOption deleteProductOption(ClockHolder clock) {
+        return ProductOption.builder()
+                .id(id)
+                .productId(productId)
+                .sellerId(sellerId)
+                .name(name)
+                .optionType(optionType)
+                .usable(usable)
+                .isDeleted(true)
+                .createdAt(createdAt)
+                .updatedAt(clock.now())
+                .build();
+    }
+
     public ProductOptionIdentifier toIdentifier() {
         return new ProductOptionIdentifier(id, productId, sellerId);
     }

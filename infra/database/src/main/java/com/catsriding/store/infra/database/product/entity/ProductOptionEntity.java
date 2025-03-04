@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -73,6 +74,20 @@ public class ProductOptionEntity {
                 .createdAt(createdAt)
                 .updatedAt(updatedAt)
                 .optionValues(optionValues)
+                .build();
+    }
+
+    public ProductOption toDomain() {
+        return ProductOption.builder()
+                .id(ProductOptionId.withId(id))
+                .productId(ProductId.withId(productId))
+                .name(name)
+                .optionType(optionType)
+                .usable(usable)
+                .isDeleted(isDeleted)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
+                .optionValues(new ArrayList<>())
                 .build();
     }
 }

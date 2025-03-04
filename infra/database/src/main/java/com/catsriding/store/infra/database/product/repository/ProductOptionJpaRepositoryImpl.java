@@ -5,9 +5,11 @@ import static com.catsriding.store.infra.database.product.entity.QProductOptionV
 
 import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
 import com.catsriding.store.domain.product.model.ProductOptionWithValue;
+import com.catsriding.store.infra.database.product.entity.ProductOptionEntity;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +18,20 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductOptionJpaRepositoryImpl implements ProductOptionJpaRepositoryExtension {
 
     private final JPAQueryFactory queryFactory;
+
+    @Override
+    public Optional<ProductOptionEntity> fetchBy(ProductOptionIdentifier identifier) {
+        return Optional.ofNullable(
+                queryFactory
+                        .select(productOptionEntity)
+                        .from(productOptionEntity)
+                        .where(
+                                productOptionEntity.id.eq(identifier.optionId().id()),
+                                productOptionEntity.productId.eq(identifier.productId().id()),
+                                productOptionEntity.isDeleted.isFalse()
+                        )
+                        .fetchOne());
+    }
 
     @Override
     public List<ProductOptionWithValue> fetchOptionsWithValues(ProductOptionIdentifier identifier) {

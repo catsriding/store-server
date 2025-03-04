@@ -99,7 +99,7 @@ class ProductOptionControllerOptionsApiTest extends IntegrationTestSupport {
                                 LocalDateTime.now())
                 ))
                 .build();
-        return productOptionRepository.save(option);
+        return productOptionRepository.saveWithOptionValues(option);
     }
 
     private ProductOption createInputProductOption(Product product) {
@@ -114,7 +114,7 @@ class ProductOptionControllerOptionsApiTest extends IntegrationTestSupport {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
-        return productOptionRepository.save(option);
+        return productOptionRepository.saveWithOptionValues(option);
     }
 
     @Test

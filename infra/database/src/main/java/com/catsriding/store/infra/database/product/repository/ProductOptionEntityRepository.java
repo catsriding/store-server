@@ -7,6 +7,7 @@ import com.catsriding.store.domain.product.model.ProductOptionWithValue;
 import com.catsriding.store.domain.product.repository.ProductOptionRepository;
 import com.catsriding.store.infra.database.product.entity.ProductOptionEntity;
 import com.catsriding.store.infra.database.product.entity.ProductOptionValueEntity;
+import com.catsriding.store.infra.database.shared.DataNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class ProductOptionEntityRepository implements ProductOptionRepository {
 
     @Override
     @Transactional
-    public ProductOption save(ProductOption productOption) {
+    public ProductOption saveWithOptionValues(ProductOption productOption) {
         ProductOptionEntity optionEntity = ProductOptionEntity.from(productOption);
         List<ProductOptionValue> optionValues = productOption.optionValues();
 
@@ -40,12 +41,39 @@ public class ProductOptionEntityRepository implements ProductOptionRepository {
 
         productOption = optionEntity.toDomain(optionValues);
 
-        log.info("save: Successfully save product option - optionId={}, optionName={}, totalValues={}",
+        log.info("saveWithOptionValues: Successfully save product option - optionId={}, optionName={}, totalValues={}",
                 productOption.id(),
                 productOption.name(),
                 optionValues.size());
 
         return productOption;
+    }
+
+    @Override
+    @Transactional
+    public ProductOption saveWithoutOptionValues(ProductOption productOption) {
+        ProductOptionEntity entity = ProductOptionEntity.from(productOption);
+        entity = productOptionJpaRepository.save(entity);
+
+        log.info("saveWithoutOptionValues: Successfully save product option - optionId={}, productId={}",
+                productOption.id(),
+                productOption.productId().id());
+
+        return entity.toDomain();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ProductOption loadProductOption(ProductOptionIdentifier identifier) {
+        return productOptionJpaRepository.fetchBy(identifier)
+                .map(ProductOptionEntity::toDomain)
+                .orElseThrow(() -> {
+                    log.warn("loadProductOption: Does not found product option - optionId={}, productId={}, sellerId={}",
+                            identifier.optionId().id(),
+                            identifier.productId().id(),
+                            identifier.sellerId().id());
+                    return new DataNotFoundException("요청한 상품 옵션을 찾을 수 없습니다. 확인 후 다시 확인해주세요.");
+                });
     }
 
     private List<ProductOptionValue> saveOptionValues(List<ProductOptionValue> values) {

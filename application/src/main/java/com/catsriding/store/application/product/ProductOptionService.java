@@ -3,6 +3,8 @@ package com.catsriding.store.application.product;
 import com.catsriding.store.application.product.exception.ProductOptionLimitExceededException;
 import com.catsriding.store.application.product.exception.ProductUnavailableException;
 import com.catsriding.store.application.product.model.ProductOptionCreate;
+import com.catsriding.store.application.product.model.ProductOptionDelete;
+import com.catsriding.store.application.product.result.ProductOptionDeleteResult;
 import com.catsriding.store.application.product.result.ProductOptionResult;
 import com.catsriding.store.domain.product.ProductOption;
 import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
@@ -43,14 +45,30 @@ public class ProductOptionService {
         validateProductExistence(identifier);
         validateProductOptionLimit(identifier);
 
-        productOption = productOptionRepository.save(productOption);
+        productOption = productOptionRepository.saveWithOptionValues(productOption);
 
         log.info("createProductOption: Successfully created product option - optionId={}, productId={}, sellerId={}",
-                identifier.optionId(),
+                identifier.optionId().id(),
                 identifier.productId(),
                 identifier.sellerId());
 
         return ProductOptionResult.from(productOption);
+    }
+
+    public ProductOptionDeleteResult deleteProductOption(ProductOptionDelete command) {
+        ProductOptionIdentifier identifier = command.toIdentifier();
+        validateProductExistence(identifier);
+
+        ProductOption productOption = productOptionRepository.loadProductOption(identifier);
+        productOption = productOption.deleteProductOption(clockHolder);
+        productOption = productOptionRepository.saveWithoutOptionValues(productOption);
+
+        log.info("deleteProductOption: Successfully deleted product option - optionId={}, productId={}, sellerId={}",
+                identifier.optionId().id(),
+                identifier.productId().id(),
+                identifier.sellerId().id());
+
+        return ProductOptionDeleteResult.from(productOption);
     }
 
     private void validateProductExistence(ProductOptionIdentifier identifier) {
@@ -74,4 +92,5 @@ public class ProductOptionService {
             throw new ProductOptionLimitExceededException("상품 옵션의 최대 개수를 초과했습니다. 하나의 상품에는 최대 3개의 옵션만 추가할 수 있습니다.");
         }
     }
+
 }

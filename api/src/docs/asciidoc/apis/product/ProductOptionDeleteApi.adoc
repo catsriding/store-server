@@ -1,0 +1,14 @@
+[[ProductOptionDelete]]
+=== 상품 옵션 삭제 API
+상품 옵션 삭제 API
+
+[source,http,options="nowrap"]
+----
+DELETE /products/{productId}/options/{optionId} HTTP/1.1
+----
+
+==== Request
+operation::product-option-controller-delete-api-test/docs-product-option-delete-api[snippets='request-headers,path-parameters,http-request']
+
+==== Response
+operation::product-option-controller-delete-api-test/docs-product-option-delete-api[snippets='response-headers,response-fields,http-response']

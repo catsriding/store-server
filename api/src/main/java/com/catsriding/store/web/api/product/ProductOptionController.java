@@ -1,10 +1,13 @@
 package com.catsriding.store.web.api.product;
 
 import com.catsriding.store.application.product.ProductOptionService;
+import com.catsriding.store.application.product.result.ProductOptionDeleteResult;
 import com.catsriding.store.application.product.result.ProductOptionResult;
 import com.catsriding.store.domain.product.model.ProductOptionWithValue;
+import com.catsriding.store.web.api.product.request.ProductOptionDeleteRequest;
 import com.catsriding.store.web.api.product.request.ProductOptionRequest;
 import com.catsriding.store.web.api.product.request.ProductOptionsRequest;
+import com.catsriding.store.web.api.product.response.ProductOptionDeleteResponse;
 import com.catsriding.store.web.api.product.response.ProductOptionResponse;
 import com.catsriding.store.web.api.product.response.ProductOptionsResponse;
 import com.catsriding.store.web.security.model.CurrentUser;
@@ -14,6 +17,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,5 +60,19 @@ public class ProductOptionController {
         ProductOptionResponse response = ProductOptionResponse.from(result);
         return ResponseEntity
                 .ok(ApiResponse.success(response, "상품 옵션이 성공적으로 생성되었습니다."));
+    }
+
+    @DeleteMapping("/{optionId}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public ResponseEntity<?> productOptionDeleteApi(
+            @PathVariable Long productId,
+            @PathVariable Long optionId,
+            @CurrentUser LoginUser user
+    ) {
+        ProductOptionDeleteRequest request = ProductOptionDeleteRequest.from(productId, optionId, user);
+        ProductOptionDeleteResult result = service.deleteProductOption(request.toCommand());
+        ProductOptionDeleteResponse response = ProductOptionDeleteResponse.from(result);
+        return ResponseEntity
+                .ok(ApiResponse.success(response, "상품 옵션이 성공적으로 삭제되었습니다."));
     }
 }
