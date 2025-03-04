@@ -1,0 +1,14 @@
+[[ProductOptions]]
+=== 상품 옵션 목록 조회 API
+상품 옵션 목록 조회 API
+
+[source,http,options="nowrap"]
+----
+GET /products/{productId}/options HTTP/1.1
+----
+
+==== Request
+operation::product-option-controller-options-api-test/docs-product-options-api[snippets='request-headers,path-parameters,http-request']
+
+==== Response
+operation::product-option-controller-options-api-test/docs-product-options-api[snippets='response-headers,response-fields,http-response']

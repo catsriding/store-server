@@ -2,14 +2,19 @@ package com.catsriding.store.web.api.product;
 
 import com.catsriding.store.application.product.ProductOptionService;
 import com.catsriding.store.application.product.result.ProductOptionResult;
+import com.catsriding.store.domain.product.model.ProductOptionWithValue;
 import com.catsriding.store.web.api.product.request.ProductOptionRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionsRequest;
 import com.catsriding.store.web.api.product.response.ProductOptionResponse;
+import com.catsriding.store.web.api.product.response.ProductOptionsResponse;
 import com.catsriding.store.web.security.model.CurrentUser;
 import com.catsriding.store.web.shared.ApiResponse;
 import com.catsriding.store.web.shared.LoginUser;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +30,19 @@ public class ProductOptionController {
 
     public ProductOptionController(ProductOptionService service) {
         this.service = service;
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public ResponseEntity<?> productOptionsApi(
+            @PathVariable Long productId,
+            @CurrentUser LoginUser user
+    ) {
+        ProductOptionsRequest request = ProductOptionsRequest.from(productId, user);
+        List<ProductOptionWithValue> results = service.retrieveOptions(request.toCond());
+        ProductOptionsResponse response = ProductOptionsResponse.from(results);
+        return ResponseEntity
+                .ok(ApiResponse.success(response, "상품의 옵션 목록을 성공적으로 조회했습니다."));
     }
 
     @PostMapping

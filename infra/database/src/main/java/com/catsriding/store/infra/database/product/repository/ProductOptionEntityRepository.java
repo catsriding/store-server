@@ -3,6 +3,7 @@ package com.catsriding.store.infra.database.product.repository;
 import com.catsriding.store.domain.product.ProductOption;
 import com.catsriding.store.domain.product.ProductOptionValue;
 import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
+import com.catsriding.store.domain.product.model.ProductOptionWithValue;
 import com.catsriding.store.domain.product.repository.ProductOptionRepository;
 import com.catsriding.store.infra.database.product.entity.ProductOptionEntity;
 import com.catsriding.store.infra.database.product.entity.ProductOptionValueEntity;
@@ -55,6 +56,12 @@ public class ProductOptionEntityRepository implements ProductOptionRepository {
                 .map(productOptionValueJpaRepository::save)
                 .map(ProductOptionValueEntity::toDomain)
                 .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductOptionWithValue> loadProductOptions(ProductOptionIdentifier identifier) {
+        return productOptionJpaRepository.fetchOptionsWithValues(identifier);
     }
 
     @Override

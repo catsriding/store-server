@@ -6,9 +6,11 @@ import com.catsriding.store.application.product.model.ProductOptionCreate;
 import com.catsriding.store.application.product.result.ProductOptionResult;
 import com.catsriding.store.domain.product.ProductOption;
 import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
+import com.catsriding.store.domain.product.model.ProductOptionWithValue;
 import com.catsriding.store.domain.product.repository.ProductOptionRepository;
 import com.catsriding.store.domain.product.repository.ProductRepository;
 import com.catsriding.store.domain.shared.ClockHolder;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,10 @@ public class ProductOptionService {
         this.productRepository = productRepository;
         this.productOptionRepository = productOptionRepository;
         this.clockHolder = clockHolder;
+    }
+
+    public List<ProductOptionWithValue> retrieveOptions(ProductOptionIdentifier cond) {
+        return productOptionRepository.loadProductOptions(cond);
     }
 
     public ProductOptionResult createProductOption(ProductOptionCreate command) {
@@ -68,5 +74,4 @@ public class ProductOptionService {
             throw new ProductOptionLimitExceededException("상품 옵션의 최대 개수를 초과했습니다. 하나의 상품에는 최대 3개의 옵션만 추가할 수 있습니다.");
         }
     }
-
 }
