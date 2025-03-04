@@ -7,7 +7,7 @@ public record ProductUpdateResult(
         Long id,
         Long sellerId,
         String name,
-        String status,
+        String statusType,
         LocalDateTime updatedAt,
         LocalDateTime createdAt
 ) {

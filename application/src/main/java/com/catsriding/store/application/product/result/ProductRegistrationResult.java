@@ -7,7 +7,7 @@ public record ProductRegistrationResult(
         Long id,
         Long sellerId,
         String name,
-        String status,
+        String statusType,
         LocalDateTime createdAt
 ) {
 

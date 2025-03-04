@@ -20,7 +20,7 @@ public class Product {
     private final String description;
     private final Integer price;
     private final Integer deliveryFee;
-    private final ProductStatusType status;
+    private final ProductStatusType statusType;
     private final boolean isDeleted;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
@@ -33,7 +33,7 @@ public class Product {
             String description,
             Integer price,
             Integer deliveryFee,
-            ProductStatusType status,
+            ProductStatusType statusType,
             boolean isDeleted,
             LocalDateTime createdAt,
             LocalDateTime updatedAt
@@ -44,7 +44,7 @@ public class Product {
         this.description = description;
         this.price = price;
         this.deliveryFee = deliveryFee;
-        this.status = status;
+        this.statusType = statusType;
         this.isDeleted = isDeleted;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -60,7 +60,7 @@ public class Product {
                 .description(newProduct.description())
                 .price(newProduct.price())
                 .deliveryFee(newProduct.deliveryFee())
-                .status(newProduct.status())
+                .statusType(newProduct.statusType())
                 .isDeleted(newProduct.isDeleted())
                 .updatedAt(clockHolder.now())
                 .createdAt(clockHolder.now())
@@ -78,7 +78,7 @@ public class Product {
                 .description(updateProduct.description())
                 .price(updateProduct.price())
                 .deliveryFee(updateProduct.deliveryFee())
-                .status(updateProduct.status())
+                .statusType(updateProduct.statusType())
                 .isDeleted(updateProduct.isDeleted())
                 .updatedAt(clockHolder.now())
                 .createdAt(createdAt)
@@ -95,7 +95,7 @@ public class Product {
                 .description(description)
                 .price(price)
                 .deliveryFee(deliveryFee)
-                .status(DELETED)
+                .statusType(DELETED)
                 .isDeleted(true)
                 .updatedAt(clockHolder.now())
                 .createdAt(createdAt)
@@ -131,7 +131,7 @@ public class Product {
     }
 
     public ProductStatusType status() {
-        return status;
+        return statusType;
     }
 
     public boolean isDeleted() {

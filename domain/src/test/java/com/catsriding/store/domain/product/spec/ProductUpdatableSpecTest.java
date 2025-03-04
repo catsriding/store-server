@@ -60,7 +60,7 @@ class ProductUpdatableSpecTest {
                 .description("테스트 상품 설명")
                 .price(10000)
                 .deliveryFee(3000)
-                .status(status)
+                .statusType(status)
                 .isDeleted(isDeleted)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())

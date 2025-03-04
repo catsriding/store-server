@@ -46,7 +46,7 @@ public class AuthService {
         verifyPassword(user, command.password());
         verifyUserStatus(user);
 
-        TokenClaims tokenClaims = TokenClaims.from(user.id(), user.username(), user.role().name());
+        TokenClaims tokenClaims = TokenClaims.from(user.id(), user.username(), user.roleType().name());
         TokenContainer tokenContainer = tokenProvider.issue(tokenClaims, clockHolder.currentTimeMillis());
 
         log.info("login: Successfully logged in - userId={}, username={}", user.id(), user.username());
@@ -61,13 +61,13 @@ public class AuthService {
     }
 
     private void verifyUserStatus(User user) {
-        if (user.status() == ACTIVE) return;
+        if (user.statusType() == ACTIVE) return;
 
         log.warn("verifyUserStatus: User account is not active - username={}, status={}",
                 user.username(),
-                user.status());
+                user.statusType());
 
-        String message = switch (user.status()) {
+        String message = switch (user.statusType()) {
             case INACTIVE -> "이 계정은 현재 비활성화되어 있어 로그인할 수 없습니다. 관리자에게 문의해 주세요.";
             case SUSPENDED -> "이 계정은 일시적으로 정지되었습니다. 관리자에게 문의해 주세요.";
             case DELETED -> "이 계정은 삭제된 상태입니다. 새로운 계정을 생성하거나 관리자에게 문의해 주세요.";

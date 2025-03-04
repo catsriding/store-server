@@ -10,7 +10,7 @@ public record ProductRegistration(
         String description,
         int price,
         int deliveryFee,
-        String status
+        String statusType
 ) {
 
     public NewProduct toNewProduct() {
@@ -20,7 +20,7 @@ public record ProductRegistration(
                 description,
                 price,
                 deliveryFee,
-                ProductStatusType.valueOf(status),
+                ProductStatusType.valueOf(statusType),
                 false
         );
     }

@@ -10,7 +10,7 @@ public record ProductDetailsResponse(
         String description,
         Integer price,
         Integer deliveryFee,
-        String status,
+        String statusType,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
@@ -23,7 +23,7 @@ public record ProductDetailsResponse(
                 result.description(),
                 result.price(),
                 result.deliveryFee(),
-                result.status(),
+                result.statusType(),
                 result.createdAt(),
                 result.updatedAt()
         );

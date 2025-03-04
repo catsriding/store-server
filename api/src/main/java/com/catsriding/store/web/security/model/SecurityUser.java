@@ -16,8 +16,8 @@ public class SecurityUser extends User {
     public SecurityUser(
             AuthenticatedUser authenticatedUser
     ) {
-        super(authenticatedUser.username(), "{noop}pwd", authorities(authenticatedUser.role()));
-        this.loginUser = new LoginUser(authenticatedUser.id(), authenticatedUser.username(), authenticatedUser.role());
+        super(authenticatedUser.username(), "{noop}pwd", authorities(authenticatedUser.roleType()));
+        this.loginUser = new LoginUser(authenticatedUser.id(), authenticatedUser.username(), authenticatedUser.roleType());
     }
 
     private static List<GrantedAuthority> authorities(UserRoleType role) {

@@ -9,7 +9,7 @@ public record NewProduct(
         String description,
         int price,
         int deliveryFee,
-        ProductStatusType status,
+        ProductStatusType statusType,
         boolean isDeleted
 ) {
 

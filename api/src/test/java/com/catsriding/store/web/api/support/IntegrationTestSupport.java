@@ -70,7 +70,7 @@ public abstract class IntegrationTestSupport {
     }
 
     protected String userAccessToken(User user) {
-        TokenClaims claims = TokenClaims.from(user.id(), user.username(), user.role().name());
+        TokenClaims claims = TokenClaims.from(user.id(), user.username(), user.roleType().name());
         return tokenProvider.issue(claims, clockHolder.currentTimeMillis()).accessToken();
     }
 
@@ -79,8 +79,8 @@ public abstract class IntegrationTestSupport {
                 .id(UserId.withoutId())
                 .username("user@test.com")
                 .password(passwordEncoder.encode("test1234"))
-                .role(ROLE_USER)
-                .status(ACTIVE)
+                .roleType(ROLE_USER)
+                .statusType(ACTIVE)
                 .createdAt(clockHolder.now())
                 .updatedAt(clockHolder.now())
                 .build();

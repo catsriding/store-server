@@ -76,7 +76,7 @@ class ProductControllerRegistrationApiTest extends IntegrationTestSupport {
                                 fieldWithPath("data.productId").description("상품 ID"),
                                 fieldWithPath("data.sellerId").description("판매자 ID"),
                                 fieldWithPath("data.name").description("상품명"),
-                                fieldWithPath("data.status").description("상품 상태: `SALE` | `INACTIVE` | `DELETED`"),
+                                fieldWithPath("data.statusType").description("상품 상태: `SALE` | `INACTIVE` | `DELETED`"),
                                 fieldWithPath("data.createdAt").description("상품 등록 일시"),
                                 fieldWithPath("message").description("처리 결과 메시지")
                         )

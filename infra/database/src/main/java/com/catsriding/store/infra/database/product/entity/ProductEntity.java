@@ -42,7 +42,7 @@ public class ProductEntity {
 
     @Column(name = "status_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ProductStatusType status;
+    private ProductStatusType statusType;
 
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
@@ -61,7 +61,7 @@ public class ProductEntity {
         entity.description = domain.description();
         entity.price = domain.price();
         entity.deliveryFee = domain.deliveryFee();
-        entity.status = domain.status();
+        entity.statusType = domain.status();
         entity.isDeleted = domain.isDeleted();
         entity.createdAt = domain.createdAt();
         entity.updatedAt = domain.updatedAt();
@@ -76,7 +76,7 @@ public class ProductEntity {
                 .description(description)
                 .price(price)
                 .deliveryFee(deliveryFee)
-                .status(status)
+                .statusType(statusType)
                 .isDeleted(isDeleted)
                 .updatedAt(updatedAt)
                 .createdAt(createdAt)

@@ -30,13 +30,13 @@ public class UserEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "role_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRoleType role;
+    private UserRoleType roleType;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserStatusType status;
+    private UserStatusType statusType;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -49,8 +49,8 @@ public class UserEntity {
         entity.id = user.id();
         entity.username = user.username();
         entity.password = user.password();
-        entity.role = user.role();
-        entity.status = user.status();
+        entity.roleType = user.roleType();
+        entity.statusType = user.statusType();
         entity.createdAt = user.createdAt();
         entity.updatedAt = user.updatedAt();
         return entity;
@@ -61,8 +61,8 @@ public class UserEntity {
                 .id(UserId.withId(id()))
                 .username(username)
                 .password(password)
-                .role(role)
-                .status(status)
+                .roleType(roleType)
+                .statusType(statusType)
                 .createdAt(createdAt)
                 .updatedAt(updatedAt)
                 .build();

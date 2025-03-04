@@ -10,7 +10,7 @@ public record ProductDetailsResult(
         String description,
         Integer price,
         Integer deliveryFee,
-        String status,
+        String statusType,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {

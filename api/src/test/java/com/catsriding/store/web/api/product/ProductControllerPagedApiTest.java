@@ -43,7 +43,7 @@ class ProductControllerPagedApiTest extends IntegrationTestSupport {
                 .description("고품질 원두")
                 .price(15000)
                 .deliveryFee(2500)
-                .status(ProductStatusType.SALE)
+                .statusType(ProductStatusType.SALE)
                 .isDeleted(false)
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())

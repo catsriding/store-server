@@ -11,7 +11,7 @@ public record UpdateProduct(
         String description,
         Integer price,
         Integer deliveryFee,
-        ProductStatusType status,
+        ProductStatusType statusType,
         boolean isDeleted
 ) {
 

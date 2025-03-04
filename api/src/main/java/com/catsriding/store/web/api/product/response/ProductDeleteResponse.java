@@ -7,7 +7,7 @@ public record ProductDeleteResponse(
         String productId,
         String sellerId,
         String name,
-        String status,
+        String statusType,
         LocalDateTime updatedAt,
         LocalDateTime createdAt
 ) {
@@ -17,7 +17,7 @@ public record ProductDeleteResponse(
                 String.valueOf(result.id()),
                 String.valueOf(result.sellerId()),
                 result.name(),
-                result.status(),
+                result.statusType(),
                 result.updatedAt(),
                 result.createdAt()
         );

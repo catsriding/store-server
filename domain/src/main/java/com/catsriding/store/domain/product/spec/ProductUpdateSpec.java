@@ -48,7 +48,7 @@ public class ProductUpdateSpec extends AbstractSpecification<UpdateProduct> {
         }
 
         if (!hasValidStatus(product)) {
-            log.info("Product update validation failed: invalid status type - status={}", product.status());
+            log.info("Product update validation failed: invalid status type - status={}", product.statusType());
             throw new GenericSpecificationException("상품 상태가 유효하지 않습니다.");
         }
     }
@@ -74,6 +74,6 @@ public class ProductUpdateSpec extends AbstractSpecification<UpdateProduct> {
     }
 
     private boolean hasValidStatus(UpdateProduct product) {
-        return product.status() == ProductStatusType.SALE || product.status() == ProductStatusType.INACTIVE;
+        return product.statusType() == ProductStatusType.SALE || product.statusType() == ProductStatusType.INACTIVE;
     }
 }

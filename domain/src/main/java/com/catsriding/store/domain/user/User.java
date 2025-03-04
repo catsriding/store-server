@@ -9,8 +9,8 @@ public class User {
     private final UserId id;
     private final String username;
     private final String password;
-    private final UserRoleType role;
-    private final UserStatusType status;
+    private final UserRoleType roleType;
+    private final UserStatusType statusType;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
@@ -19,16 +19,16 @@ public class User {
             UserId id,
             String username,
             String password,
-            UserRoleType role,
-            UserStatusType status,
+            UserRoleType roleType,
+            UserStatusType statusType,
             LocalDateTime createdAt,
             LocalDateTime updatedAt
     ) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.role = role;
-        this.status = status;
+        this.roleType = roleType;
+        this.statusType = statusType;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -45,12 +45,12 @@ public class User {
         return username;
     }
 
-    public UserRoleType role() {
-        return role;
+    public UserRoleType roleType() {
+        return roleType;
     }
 
-    public UserStatusType status() {
-        return status;
+    public UserStatusType statusType() {
+        return statusType;
     }
 
     public String password() {

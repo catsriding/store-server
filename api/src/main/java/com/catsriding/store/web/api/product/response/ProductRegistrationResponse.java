@@ -7,7 +7,7 @@ public record ProductRegistrationResponse(
         String productId,
         String sellerId,
         String name,
-        String status,
+        String statusType,
         LocalDateTime createdAt
 ) {
 
@@ -16,7 +16,7 @@ public record ProductRegistrationResponse(
                 String.valueOf(result.id()),
                 String.valueOf(result.sellerId()),
                 result.name(),
-                result.status(),
+                result.statusType(),
                 result.createdAt()
         );
     }

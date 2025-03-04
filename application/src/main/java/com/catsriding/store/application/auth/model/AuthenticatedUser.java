@@ -6,7 +6,7 @@ import com.catsriding.store.domain.user.UserRoleType;
 public record AuthenticatedUser(
         Long id,
         String username,
-        UserRoleType role
+        UserRoleType roleType
 ) {
 
     public static AuthenticatedUser from(TokenClaims claims) {

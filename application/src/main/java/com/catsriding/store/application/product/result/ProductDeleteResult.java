@@ -7,7 +7,7 @@ public record ProductDeleteResult(
         Long id,
         Long sellerId,
         String name,
-        String status,
+        String statusType,
         LocalDateTime updatedAt,
         LocalDateTime createdAt
 ) {

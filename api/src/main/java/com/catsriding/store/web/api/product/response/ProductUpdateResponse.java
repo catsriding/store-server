@@ -7,7 +7,7 @@ public record ProductUpdateResponse(
         String productId,
         String sellerId,
         String name,
-        String status,
+        String statusType,
         LocalDateTime updatedAt,
         LocalDateTime createdAt
 ) {
@@ -17,7 +17,7 @@ public record ProductUpdateResponse(
                 String.valueOf(result.id()),
                 String.valueOf(result.sellerId()),
                 result.name(),
-                result.status(),
+                result.statusType(),
                 result.updatedAt(),
                 result.createdAt()
         );

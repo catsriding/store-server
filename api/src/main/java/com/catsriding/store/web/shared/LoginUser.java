@@ -5,7 +5,7 @@ import com.catsriding.store.domain.user.UserRoleType;
 public record LoginUser(
         Long id,
         String username,
-        UserRoleType role
+        UserRoleType roleType
 ) {
 
 }
