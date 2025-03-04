@@ -1,5 +1,7 @@
 package com.catsriding.store.domain.product;
 
+import com.catsriding.store.domain.product.model.NewProductOptionValue;
+import com.catsriding.store.domain.shared.ClockHolder;
 import java.time.LocalDateTime;
 import lombok.Builder;
 
@@ -69,5 +71,22 @@ public class ProductOptionValue {
 
     public LocalDateTime updatedAt() {
         return updatedAt;
+    }
+
+    public static ProductOptionValue from(
+            NewProductOptionValue optionValue,
+            ProductOptionId optionId,
+            ClockHolder clock
+    ) {
+        return ProductOptionValue.builder()
+                .id(ProductOptionValueId.withoutId())
+                .optionId(optionId)
+                .name(optionValue.name())
+                .price(optionValue.price())
+                .usable(optionValue.usable())
+                .isDeleted(false)
+                .createdAt(clock.now())
+                .updatedAt(clock.now())
+                .build();
     }
 }

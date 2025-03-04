@@ -2,6 +2,7 @@ package com.catsriding.store.infra.database.product.repository;
 
 import static com.catsriding.store.infra.database.product.entity.QProductEntity.productEntity;
 
+import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
 import com.catsriding.store.domain.product.model.ProductIdentifier;
 import com.catsriding.store.domain.product.model.ProductPageCond;
 import com.catsriding.store.domain.product.model.ProductSummary;
@@ -68,5 +69,19 @@ public class ProductJpaRepositoryImpl implements ProductJpaRepositoryExtension {
                 );
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchFirst);
+    }
+
+    @Override
+    public boolean existsBy(ProductOptionIdentifier identifier) {
+        Long id = queryFactory
+                .select(productEntity.id)
+                .from(productEntity)
+                .where(
+                        productEntity.id.eq(identifier.productId().id()),
+                        productEntity.userId.eq(identifier.sellerId().id()),
+                        productEntity.isDeleted.isFalse()
+                )
+                .fetchFirst();
+        return id != null;
     }
 }

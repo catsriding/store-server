@@ -16,3 +16,6 @@ include::apis/product/ProductRegistrationApi.adoc[]
 include::apis/product/ProductDetailsApi.adoc[]
 include::apis/product/ProductUpdateApi.adoc[]
 include::apis/product/ProductDeleteApi.adoc[]
+
+== 상품 옵션 관리
+include::apis/product/ProductOptionCreateApi.adoc[]

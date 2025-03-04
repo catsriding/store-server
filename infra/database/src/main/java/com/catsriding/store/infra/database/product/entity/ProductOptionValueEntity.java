@@ -1,5 +1,8 @@
 package com.catsriding.store.infra.database.product.entity;
 
+import com.catsriding.store.domain.product.ProductOptionId;
+import com.catsriding.store.domain.product.ProductOptionValue;
+import com.catsriding.store.domain.product.ProductOptionValueId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +23,7 @@ public class ProductOptionValueEntity implements Persistable<Long> {
     @Id
     @Column(name = "id", updatable = false, columnDefinition = "bigint unsigned")
     private Long id;
-    
+
     @Column(name = "option_id", nullable = false, updatable = false)
     private Long optionId;
 
@@ -44,6 +47,41 @@ public class ProductOptionValueEntity implements Persistable<Long> {
 
     @Transient
     private boolean isNewEntity = false;
+
+    public static ProductOptionValueEntity newEntity(ProductOptionValue domain) {
+        return from(domain, true);
+    }
+
+    public static ProductOptionValueEntity updateEntity(ProductOptionValue domain) {
+        return from(domain, false);
+    }
+
+    private static ProductOptionValueEntity from(ProductOptionValue domain, boolean isNewEntity) {
+        ProductOptionValueEntity entity = new ProductOptionValueEntity();
+        entity.id = domain.id();
+        entity.optionId = domain.optionId().id();
+        entity.name = domain.name();
+        entity.price = domain.price();
+        entity.usable = domain.usable();
+        entity.isDeleted = domain.isDeleted();
+        entity.createdAt = domain.createdAt();
+        entity.updatedAt = domain.updatedAt();
+        entity.isNewEntity = isNewEntity;
+        return entity;
+    }
+
+    public ProductOptionValue toDomain() {
+        return ProductOptionValue.builder()
+                .id(ProductOptionValueId.withId(id))
+                .optionId(ProductOptionId.withId(optionId))
+                .name(name)
+                .price(price)
+                .usable(usable)
+                .isDeleted(isDeleted)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
+                .build();
+    }
 
     @Override
     public boolean isNew() {

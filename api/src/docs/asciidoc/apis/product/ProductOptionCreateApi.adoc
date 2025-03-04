@@ -1,0 +1,14 @@
+[[ProductOptionCreate]]
+=== 상품 옵션 생성 API
+상품 옵션 생성 API
+
+[source,http,options="nowrap"]
+----
+POST /products/{productId}/options HTTP/1.1
+----
+
+==== Request
+operation::product-option-controller-create-api-test/docs-product-option-create-api[snippets='request-headers,path-parameters,request-fields,http-request']
+
+==== Response
+operation::product-option-controller-create-api-test/docs-product-option-create-api[snippets='response-headers,response-fields,http-response']

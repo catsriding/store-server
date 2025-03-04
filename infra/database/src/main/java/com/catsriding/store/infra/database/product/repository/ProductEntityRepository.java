@@ -1,6 +1,7 @@
 package com.catsriding.store.infra.database.product.repository;
 
 import com.catsriding.store.domain.product.Product;
+import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
 import com.catsriding.store.domain.product.model.ProductIdentifier;
 import com.catsriding.store.domain.product.model.ProductPageCond;
 import com.catsriding.store.domain.product.model.ProductSummary;
@@ -64,6 +65,12 @@ public class ProductEntityRepository implements ProductRepository {
                 page.isLast(),
                 page.hasNext()
         );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsBy(ProductOptionIdentifier identifier) {
+        return productJpaRepository.existsBy(identifier);
     }
 
 }

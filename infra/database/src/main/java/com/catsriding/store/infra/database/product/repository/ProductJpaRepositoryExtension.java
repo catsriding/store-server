@@ -1,5 +1,6 @@
 package com.catsriding.store.infra.database.product.repository;
 
+import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
 import com.catsriding.store.domain.product.model.ProductIdentifier;
 import com.catsriding.store.domain.product.model.ProductPageCond;
 import com.catsriding.store.domain.product.model.ProductSummary;
@@ -12,5 +13,7 @@ public interface ProductJpaRepositoryExtension {
     Optional<ProductEntity> fetchBy(ProductIdentifier identifier);
 
     Page<ProductSummary> fetchBy(ProductPageCond cond);
+
+    boolean existsBy(ProductOptionIdentifier identifier);
 
 }
