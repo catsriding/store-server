@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtTokenProcessor implements TokenProvider, TokenVerifier {
 
-    private static final String BEARER = "bearer";
+    private static final String BEARER = "Bearer";
 
     private final JwtProperties jwtProperties;
 

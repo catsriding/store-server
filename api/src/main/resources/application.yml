@@ -8,6 +8,22 @@ spring:
       - database.yml
       - security.yml
 
+springdoc:
+  swagger-ui:
+    path: /swagger
+    groups-order: asc
+    operationsSorter: alpha
+    tags-sorter: alpha
+    display-request-duration: true
+    disable-swagger-default-url: true
+  api-docs:
+    path: /api-docs
+    enabled: true
+    version: openapi_3_1
+  show-actuator: false
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
 ---
 ####################
 ###   🧪 TESTS   ###

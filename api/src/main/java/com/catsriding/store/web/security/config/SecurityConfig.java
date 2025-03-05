@@ -57,7 +57,13 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/health",
                                 "/login",
-                                "/docs/index.html"
+                                "/docs/index.html",
+                                "/swagger",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**"
                         )
                         .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/**"))
