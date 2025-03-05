@@ -59,6 +59,11 @@ subprojects {
         useJUnitPlatform {
             excludeTags("restdocs")
         }
+        testLogging {
+            events "passed", "skipped", "failed"
+            showStandardStreams = true
+            exceptionFormat = 'full'
+        }
     }
 
     tasks.named("asciidoctor") {
@@ -77,6 +82,11 @@ subprojects {
             includeTags("restdocs")
         }
 
+        testLogging {
+            events "passed", "skipped", "failed"
+            showStandardStreams = true
+            exceptionFormat = 'full'
+        }
         finalizedBy 'asciidoctor'
     }
 

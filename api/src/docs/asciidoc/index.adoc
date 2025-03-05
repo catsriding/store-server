@@ -7,6 +7,17 @@
 :sectlinks:
 :hardbreaks-option:
 
+== API 정보
+
+* **API 실행 및 테스트**: link:https://store-api.catsriding.com/swagger[스웨거 UI]
+* **API 서버 호스트**
+* 운영: link:https://store-api.catsriding.com[store-api.catsriding.com]
+* 로컬: link:http://localhost:8080[localhost:8080]
+* **테스트 계정**
+** **아이디**: `user@gmail.com`
+** **패스워드**: `1234`
+* **소스 코드 저장소**: link:https://github.com/catsriding/store-server[GitHub Repository]
+
 == 인증
 include::apis/auth/UserLoginApi.adoc[]
 

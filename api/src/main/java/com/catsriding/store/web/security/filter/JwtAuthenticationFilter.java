@@ -50,12 +50,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     Authentication authentication = createAuthentication(securityUser);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                    log.info("Authenticated request: method={}, uri={}, remoteIp={}, userAgent={}, username={}",
+                    log.info("Authenticated request: method={}, uri={}, remoteIp={}, userAgent={}, userId={}",
                             method,
                             requestUri,
                             request.getRemoteAddr(),
                             request.getHeader(USER_AGENT),
-                            authenticatedUser.username());
+                            authenticatedUser.id());
                 } catch (TokenValidationException e) {
                     request.setAttribute("AUTH_ERROR_MESSAGE", e.getMessage());
                     throw new AuthenticationException("JWT Verification Failed") {

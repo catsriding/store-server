@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="ACTIVE_PROFILES" value="local" />
+    <envs>
+      <env name="security.jwt.secret" value="localCats" />
+      <env name="storage.database.reader.password" value="catsriding" />
+      <env name="storage.database.reader.url" value="localhost:3306/sandbox" />
+      <env name="storage.database.reader.username" value="jin" />
+      <env name="storage.database.writer.password" value="catsriding" />
+      <env name="storage.database.writer.url" value="localhost:3306/sandbox" />
+      <env name="storage.database.writer.username" value="jin" />
+    </envs>
+    <module name="store-server.api.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.catsriding.store.Application" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

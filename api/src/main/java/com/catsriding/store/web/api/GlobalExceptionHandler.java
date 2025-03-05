@@ -2,7 +2,6 @@ package com.catsriding.store.web.api;
 
 import static com.catsriding.store.web.shared.ApiErrorResponse.failure;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 import com.catsriding.store.web.support.ApiExceptionLogger;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,8 +20,8 @@ public class GlobalExceptionHandler {
         ApiExceptionLogger.logWarning("handleIllegalArgumentException", "", e, request);
 
         return ResponseEntity
-                .status(INTERNAL_SERVER_ERROR)
-                .body(failure(null, "서버 내부 오류가 발생했습니다. 잠시 후 다시 시도해주세요."));
+                .status(BAD_REQUEST)
+                .body(failure(null, "요청이 올바르지 않습니다. 요청 정보를 확인하고 다시 시도해주세요."));
     }
 
     @ExceptionHandler(HttpMessageConversionException.class)
@@ -36,6 +35,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(BAD_REQUEST)
                 .body(failure(null, errorMessage));
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<?> handleNullPointerException(NullPointerException e, HttpServletRequest request) {
+        ApiExceptionLogger.logWarning("handleNullPointerException", "", e, request);
+
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(failure(null, "요청 데이터에 누락된 값이 있습니다. 필수 값을 확인하고 다시 시도해주세요."));
     }
 
 }
