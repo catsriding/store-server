@@ -4,10 +4,10 @@ import com.catsriding.store.application.product.model.ProductDelete;
 import com.catsriding.store.application.product.result.ProductDetailsResult;
 import com.catsriding.store.domain.product.model.ProductIdentifier;
 import com.catsriding.store.domain.product.model.ProductPageCond;
-import com.catsriding.store.application.product.model.ProductRegistration;
+import com.catsriding.store.application.product.model.ProductRegister;
 import com.catsriding.store.application.product.model.ProductUpdate;
 import com.catsriding.store.application.product.result.ProductDeleteResult;
-import com.catsriding.store.application.product.result.ProductRegistrationResult;
+import com.catsriding.store.application.product.result.ProductRegisterResult;
 import com.catsriding.store.application.product.result.ProductUpdateResult;
 import com.catsriding.store.domain.product.Product;
 import com.catsriding.store.domain.product.model.ProductSummary;
@@ -33,7 +33,7 @@ public class ProductService {
         return productRepository.loadPagedProducts(cond);
     }
 
-    public ProductRegistrationResult registerNewProduct(ProductRegistration command) {
+    public ProductRegisterResult registerNewProduct(ProductRegister command) {
         Product product = Product.from(command.toNewProduct(), clockHolder);
         product = productRepository.save(product);
 
@@ -41,7 +41,7 @@ public class ProductService {
                 product.productId().id(),
                 product.sellerId().id());
 
-        return ProductRegistrationResult.from(product);
+        return ProductRegisterResult.from(product);
     }
 
     public ProductDetailsResult retrieveProduct(ProductIdentifier cond) {

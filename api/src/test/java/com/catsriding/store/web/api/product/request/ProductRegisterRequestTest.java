@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("unitTest")
-class ProductRegistrationRequestTest {
+class ProductRegisterRequestTest {
 
     @Test
     @DisplayName("✅ 유효한 상품 데이터인 경우 검증 통과")
@@ -22,7 +22,7 @@ class ProductRegistrationRequestTest {
         String statusType = "SALE";
 
         // When & Then
-        assertThatNoException().isThrownBy(() -> new ProductRegistrationRequest(name,
+        assertThatNoException().isThrownBy(() -> new ProductRegisterRequest(name,
                 description,
                 price,
                 deliveryFee,
@@ -40,7 +40,7 @@ class ProductRegistrationRequestTest {
         String statusType = "SALE";
 
         // When & Then
-        assertThatThrownBy(() -> new ProductRegistrationRequest(name, description, price, deliveryFee, statusType))
+        assertThatThrownBy(() -> new ProductRegisterRequest(name, description, price, deliveryFee, statusType))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("상품명을 입력해 주세요.");
     }
@@ -56,7 +56,7 @@ class ProductRegistrationRequestTest {
         String statusType = "SALE";
 
         // When & Then
-        assertThatThrownBy(() -> new ProductRegistrationRequest(name, description, price, deliveryFee, statusType))
+        assertThatThrownBy(() -> new ProductRegisterRequest(name, description, price, deliveryFee, statusType))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("상품 설명을 입력해 주세요.");
     }
@@ -72,7 +72,7 @@ class ProductRegistrationRequestTest {
         String statusType = "SALE";
 
         // When & Then
-        assertThatThrownBy(() -> new ProductRegistrationRequest(name, description, price, deliveryFee, statusType))
+        assertThatThrownBy(() -> new ProductRegisterRequest(name, description, price, deliveryFee, statusType))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("상품 가격은 최소 10원 이상이어야 합니다. 다시 입력해 주세요.");
     }
@@ -88,7 +88,7 @@ class ProductRegistrationRequestTest {
         String statusType = "SALE";
 
         // When & Then
-        assertThatThrownBy(() -> new ProductRegistrationRequest(name, description, price, deliveryFee, statusType))
+        assertThatThrownBy(() -> new ProductRegisterRequest(name, description, price, deliveryFee, statusType))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("배송비는 무료 또는 일정 금액 이상이어야 합니다.");
     }
@@ -104,7 +104,7 @@ class ProductRegistrationRequestTest {
         String statusType = "INVALID"; // 잘못된 상태값
 
         // When & Then
-        assertThatThrownBy(() -> new ProductRegistrationRequest(name, description, price, deliveryFee, statusType))
+        assertThatThrownBy(() -> new ProductRegisterRequest(name, description, price, deliveryFee, statusType))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("상품 상태가 잘못되었습니다. 다시 확인해 주세요.");
     }

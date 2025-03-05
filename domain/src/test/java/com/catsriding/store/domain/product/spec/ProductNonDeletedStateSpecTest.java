@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("unitTest")
-class ProductUpdatableSpecTest {
+class ProductNonDeletedStateSpecTest {
 
-    private final ProductUpdatableSpec spec = new ProductUpdatableSpec();
+    private final ProductNonDeletedStateSpec spec = new ProductNonDeletedStateSpec();
 
     @Test
     @DisplayName("✅ 수정 가능한 상품은 검증 통과")

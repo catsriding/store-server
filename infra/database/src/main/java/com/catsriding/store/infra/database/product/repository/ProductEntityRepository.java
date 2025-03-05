@@ -35,6 +35,7 @@ public class ProductEntityRepository implements ProductRepository {
         log.info("save: Successfully saved product - productId={}, sellerId={}",
                 product.productId().id(),
                 product.sellerId().id());
+
         return entity.toDomain();
     }
 

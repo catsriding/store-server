@@ -3,23 +3,26 @@ package com.catsriding.store.web.api.product.request;
 import com.catsriding.store.application.product.model.ProductUpdate;
 import com.catsriding.store.web.shared.InvalidRequestException;
 import com.catsriding.store.web.shared.LoginUser;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+@Schema(description = "상품 수정 요청 데이터")
 @Slf4j
 public record ProductUpdateRequest(
+        @Schema(description = "상품명", example = "프리미엄 원두 커피")
         String name,
+        @Schema(description = "상품 설명", example = "신선하게 로스팅된 최고급 원두")
         String description,
+        @Schema(description = "상품 가격: 최소 10원 이상", example = "15000")
         int price,
+        @Schema(description = "배송비: 최소 0원", example = "2500")
         int deliveryFee,
+        @Schema(description = "상품 상태: `SALE` | `INACTIVE`", example = "SALE")
         String statusType
 ) {
 
     public ProductUpdateRequest {
-        validate(name, description, price, deliveryFee, statusType);
-    }
-
-    private static void validate(String name, String description, int price, int deliveryFee, String statusType) {
         if (!StringUtils.hasText(name)) {
             log.info("validate: Missing or empty product name");
             throw new InvalidRequestException("상품명을 입력해 주세요.");

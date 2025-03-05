@@ -3,7 +3,7 @@ package com.catsriding.store.application.product.result;
 import com.catsriding.store.domain.product.Product;
 import java.time.LocalDateTime;
 
-public record ProductRegistrationResult(
+public record ProductRegisterResult(
         Long id,
         Long sellerId,
         String name,
@@ -11,8 +11,8 @@ public record ProductRegistrationResult(
         LocalDateTime createdAt
 ) {
 
-    public static ProductRegistrationResult from(Product product) {
-        return new ProductRegistrationResult(
+    public static ProductRegisterResult from(Product product) {
+        return new ProductRegisterResult(
                 product.id(),
                 product.sellerId().id(),
                 product.name(),

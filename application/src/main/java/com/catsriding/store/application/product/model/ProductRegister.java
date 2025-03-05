@@ -4,7 +4,7 @@ import com.catsriding.store.domain.product.ProductStatusType;
 import com.catsriding.store.domain.product.model.NewProduct;
 import com.catsriding.store.domain.user.UserId;
 
-public record ProductRegistration(
+public record ProductRegister(
         Long sellerId,
         String name,
         String description,

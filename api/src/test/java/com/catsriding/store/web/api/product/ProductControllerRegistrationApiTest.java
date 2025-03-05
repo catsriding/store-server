@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.catsriding.store.domain.user.User;
-import com.catsriding.store.web.api.product.request.ProductRegistrationRequest;
+import com.catsriding.store.web.api.product.request.ProductRegisterRequest;
 import com.catsriding.store.web.api.support.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,8 +26,8 @@ import org.springframework.test.web.servlet.ResultActions;
 @Tag("restdocs")
 class ProductControllerRegistrationApiTest extends IntegrationTestSupport {
 
-    private ProductRegistrationRequest createDefaultProduct() {
-        return new ProductRegistrationRequest(
+    private ProductRegisterRequest createDefaultProduct() {
+        return new ProductRegisterRequest(
                 "커피 블렌딩 원두",
                 "고급 아라비카 원두입니다.",
                 15000,
@@ -42,7 +42,7 @@ class ProductControllerRegistrationApiTest extends IntegrationTestSupport {
 
         //  Given
         User user = createTestUser();
-        ProductRegistrationRequest request = createDefaultProduct();
+        ProductRegisterRequest request = createDefaultProduct();
 
         //  When
         ResultActions actions = mockMvc.perform(post("/products")

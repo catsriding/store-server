@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("unitTest")
-class ProductUpdateSpecTest {
+class ProductUpdateValidationSpecTest {
 
-    private final ProductUpdateSpec spec = new ProductUpdateSpec();
+    private final ProductUpdateValidationSpec spec = new ProductUpdateValidationSpec();
 
     @Test
     @DisplayName("✅ 유효한 상품 데이터인 경우 검증 통과")

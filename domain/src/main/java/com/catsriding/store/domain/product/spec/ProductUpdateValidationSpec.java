@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 @Slf4j
-public class ProductUpdateSpec extends AbstractSpecification<UpdateProduct> {
+public class ProductUpdateValidationSpec extends AbstractSpecification<UpdateProduct> {
 
     @Override
     public boolean isSatisfiedBy(UpdateProduct product) {

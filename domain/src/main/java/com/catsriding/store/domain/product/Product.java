@@ -4,9 +4,9 @@ import static com.catsriding.store.domain.product.ProductStatusType.DELETED;
 
 import com.catsriding.store.domain.product.model.NewProduct;
 import com.catsriding.store.domain.product.model.UpdateProduct;
-import com.catsriding.store.domain.product.spec.ProductUpdatableSpec;
+import com.catsriding.store.domain.product.spec.ProductNonDeletedStateSpec;
 import com.catsriding.store.domain.product.spec.ProductRegistrationSpec;
-import com.catsriding.store.domain.product.spec.ProductUpdateSpec;
+import com.catsriding.store.domain.product.spec.ProductUpdateValidationSpec;
 import com.catsriding.store.domain.shared.ClockHolder;
 import com.catsriding.store.domain.user.UserId;
 import java.time.LocalDateTime;
@@ -68,8 +68,8 @@ public class Product {
     }
 
     public Product update(UpdateProduct updateProduct, ClockHolder clockHolder) {
-        new ProductUpdatableSpec().check(this);
-        new ProductUpdateSpec().check(updateProduct);
+        new ProductNonDeletedStateSpec().check(this);
+        new ProductUpdateValidationSpec().check(updateProduct);
 
         return Product.builder()
                 .id(id)
@@ -86,7 +86,7 @@ public class Product {
     }
 
     public Product delete(ClockHolder clockHolder) {
-        new ProductUpdatableSpec().check(this);
+        new ProductNonDeletedStateSpec().check(this);
 
         return Product.builder()
                 .id(id)

@@ -7,7 +7,7 @@ import com.catsriding.store.domain.shared.spec.AbstractSpecification;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ProductUpdatableSpec extends AbstractSpecification<Product> {
+public class ProductNonDeletedStateSpec extends AbstractSpecification<Product> {
 
     @Override
     public boolean isSatisfiedBy(Product product) {
