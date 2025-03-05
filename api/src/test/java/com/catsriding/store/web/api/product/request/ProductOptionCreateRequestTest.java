@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.catsriding.store.application.product.model.ProductOptionCreate;
 import com.catsriding.store.application.product.model.ProductOptionCreate.OptionValue;
 import com.catsriding.store.domain.user.UserRoleType;
-import com.catsriding.store.web.api.product.request.ProductOptionRequest.ProductOptionValueRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionCreateRequest.ProductOptionValueRequest;
 import com.catsriding.store.web.shared.InvalidRequestException;
 import com.catsriding.store.web.shared.LoginUser;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("unitTest")
-class ProductOptionRequestTest {
+class ProductOptionCreateRequestTest {
 
     @Test
     @DisplayName("✅ 유효한 옵션 값 요청은 검증 통과")
@@ -31,7 +31,7 @@ class ProductOptionRequestTest {
         );
 
         // When & Then
-        assertThatNoException().isThrownBy(() -> new ProductOptionRequest(name, optionType, usable, optionValues));
+        assertThatNoException().isThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues));
     }
 
     @Test
@@ -46,7 +46,7 @@ class ProductOptionRequestTest {
         );
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(name, optionType, usable, optionValues))
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("상품 옵션의 이름을 입력해주세요.");
     }
@@ -63,7 +63,7 @@ class ProductOptionRequestTest {
         );
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(stringWith26, optionType, usable, optionValues))
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(stringWith26, optionType, usable, optionValues))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("상품 옵션의 이름은 최대 25자까지 입력할 수 있습니다.");
     }
@@ -80,7 +80,7 @@ class ProductOptionRequestTest {
         );
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(name, optionType, usable, optionValues))
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("옵션 타입을 입력해주세요.");
     }
@@ -97,7 +97,7 @@ class ProductOptionRequestTest {
         );
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(name, optionType, usable, optionValues))
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("옵션 타입이 유효하지 않습니다. 확인 후 다시 시도해주세요.");
     }
@@ -114,7 +114,7 @@ class ProductOptionRequestTest {
         );
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(name, optionType, usable, optionValues))
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("해당 옵션 타입은 옵션 값을 포함할 수 없습니다.");
     }
@@ -129,7 +129,7 @@ class ProductOptionRequestTest {
         List<ProductOptionValueRequest> optionValues = List.of();
 
         // When & Then
-        assertThatNoException().isThrownBy(() -> new ProductOptionRequest(name, optionType, usable, optionValues));
+        assertThatNoException().isThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues));
     }
 
     @Test
@@ -142,7 +142,7 @@ class ProductOptionRequestTest {
         List<ProductOptionValueRequest> optionValues = List.of();
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(name, optionType, usable, optionValues))
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("해당 옵션 타입은 최소 하나 이상의 옵션 값이 필요합니다.");
     }
@@ -156,7 +156,7 @@ class ProductOptionRequestTest {
         boolean usable = true;
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(
                 name,
                 optionType,
                 usable,
@@ -175,7 +175,7 @@ class ProductOptionRequestTest {
         String stringWith31 = RandomString.make(31);
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(
                 name,
                 optionType,
                 usable,
@@ -194,7 +194,7 @@ class ProductOptionRequestTest {
         boolean usable = true;
 
         // When & Then
-        assertThatThrownBy(() -> new ProductOptionRequest(
+        assertThatThrownBy(() -> new ProductOptionCreateRequest(
                 name,
                 optionType,
                 usable,
@@ -217,7 +217,7 @@ class ProductOptionRequestTest {
                 new ProductOptionValueRequest("블루", 2000, true)
         );
 
-        ProductOptionRequest request = new ProductOptionRequest(name, optionType, usable, optionValues);
+        ProductOptionCreateRequest request = new ProductOptionCreateRequest(name, optionType, usable, optionValues);
 
         // When
         ProductOptionCreate command = request.toCommand(productId, user);

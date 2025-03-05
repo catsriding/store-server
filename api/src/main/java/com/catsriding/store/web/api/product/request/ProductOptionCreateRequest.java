@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 @Slf4j
-public record ProductOptionRequest(
+public record ProductOptionCreateRequest(
         String name,
         String optionType,
         boolean usable,
@@ -20,7 +20,7 @@ public record ProductOptionRequest(
     private static final int NAME_MAX_LENGTH = 25;
     private static final int VALUE_NAME_MAX_LENGTH = 30;
 
-    public ProductOptionRequest {
+    public ProductOptionCreateRequest {
         if (!StringUtils.hasText(name)) {
             log.warn("ProductOptionRequest: product option name is missing");
             throw new InvalidRequestException("상품 옵션의 이름을 입력해주세요.");

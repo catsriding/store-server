@@ -4,7 +4,7 @@ import static com.catsriding.store.domain.product.ProductOptionType.INPUT;
 import static com.catsriding.store.domain.product.ProductOptionType.SELECT;
 
 import com.catsriding.store.domain.product.model.NewProductOption;
-import com.catsriding.store.domain.product.model.NewProductOptionValue;
+import com.catsriding.store.domain.product.model.NewProductOption.NewProductOptionValue;
 import com.catsriding.store.domain.product.model.ProductOptionIdentifier;
 import com.catsriding.store.domain.product.model.UpdateProductOption;
 import com.catsriding.store.domain.product.model.UpdateProductOption.UpdateProductOptionValue;
@@ -105,20 +105,20 @@ public class ProductOption {
         return Collections.unmodifiableList(optionValues);
     }
 
-    public static ProductOption from(NewProductOption newProductOption, ClockHolder clock) {
+    public static ProductOption from(NewProductOption newOption, ClockHolder clock) {
         ProductOptionId optionId = ProductOptionId.withoutId();
         List<ProductOptionValue> optionValues = toNewOptionValues(
-                newProductOption.optionType(),
-                newProductOption.newOptionValues(),
+                newOption.optionType(),
+                newOption.optionValues(),
                 optionId, clock
         );
         return ProductOption.builder()
                 .id(optionId)
-                .productId(newProductOption.productId())
-                .sellerId(newProductOption.sellerId())
-                .name(newProductOption.name())
-                .optionType(newProductOption.optionType())
-                .usable(newProductOption.usable())
+                .productId(ProductId.withId(newOption.productId()))
+                .sellerId(UserId.withId(newOption.sellerId()))
+                .name(newOption.name())
+                .optionType(newOption.optionType())
+                .usable(newOption.usable())
                 .isDeleted(false)
                 .createdAt(clock.now())
                 .updatedAt(clock.now())

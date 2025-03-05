@@ -23,7 +23,7 @@ import com.catsriding.store.domain.product.ProductId;
 import com.catsriding.store.domain.product.ProductStatusType;
 import com.catsriding.store.domain.product.repository.ProductRepository;
 import com.catsriding.store.domain.user.User;
-import com.catsriding.store.web.api.product.request.ProductOptionRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionCreateRequest;
 import com.catsriding.store.web.api.support.IntegrationTestSupport;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -63,15 +63,15 @@ class ProductOptionControllerCreateApiTest extends IntegrationTestSupport {
         User user = createTestUser();
         Product product = createProduct(user);
 
-        ProductOptionRequest request = new ProductOptionRequest(
+        ProductOptionCreateRequest request = new ProductOptionCreateRequest(
                 "로스팅 정도",
                 "SELECT",
                 true,
                 List.of(
-                        new ProductOptionRequest.ProductOptionValueRequest("생두", 0, false),
-                        new ProductOptionRequest.ProductOptionValueRequest("라이트 로스팅", 2_500, true),
-                        new ProductOptionRequest.ProductOptionValueRequest("미디엄 로스팅", 5_000, true),
-                        new ProductOptionRequest.ProductOptionValueRequest("다크 로스팅", 10_000, true)
+                        new ProductOptionCreateRequest.ProductOptionValueRequest("생두", 0, false),
+                        new ProductOptionCreateRequest.ProductOptionValueRequest("라이트 로스팅", 2_500, true),
+                        new ProductOptionCreateRequest.ProductOptionValueRequest("미디엄 로스팅", 5_000, true),
+                        new ProductOptionCreateRequest.ProductOptionValueRequest("다크 로스팅", 10_000, true)
                 )
         );
 

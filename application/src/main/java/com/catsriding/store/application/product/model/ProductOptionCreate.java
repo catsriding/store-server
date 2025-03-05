@@ -1,10 +1,8 @@
 package com.catsriding.store.application.product.model;
 
-import com.catsriding.store.domain.product.ProductId;
 import com.catsriding.store.domain.product.ProductOptionType;
 import com.catsriding.store.domain.product.model.NewProductOption;
-import com.catsriding.store.domain.product.model.NewProductOptionValue;
-import com.catsriding.store.domain.user.UserId;
+import com.catsriding.store.domain.product.model.NewProductOption.NewProductOptionValue;
 import java.util.List;
 
 public record ProductOptionCreate(
@@ -18,8 +16,8 @@ public record ProductOptionCreate(
 
     public NewProductOption toNewOption() {
         return new NewProductOption(
-                ProductId.withId(productId),
-                UserId.withId(sellerId),
+                productId,
+                sellerId,
                 name,
                 ProductOptionType.valueOf(optionType),
                 usable,

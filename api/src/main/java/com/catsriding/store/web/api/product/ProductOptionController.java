@@ -5,7 +5,7 @@ import com.catsriding.store.application.product.result.ProductOptionDeleteResult
 import com.catsriding.store.application.product.result.ProductOptionResult;
 import com.catsriding.store.domain.product.model.ProductOptionWithValue;
 import com.catsriding.store.web.api.product.request.ProductOptionDeleteRequest;
-import com.catsriding.store.web.api.product.request.ProductOptionRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionCreateRequest;
 import com.catsriding.store.web.api.product.request.ProductOptionUpdateRequest;
 import com.catsriding.store.web.api.product.request.ProductOptionsRequest;
 import com.catsriding.store.web.api.product.response.ProductOptionDeleteResponse;
@@ -55,7 +55,7 @@ public class ProductOptionController {
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResponseEntity<?> productOptionCreateApi(
             @PathVariable Long productId,
-            @RequestBody ProductOptionRequest request,
+            @RequestBody ProductOptionCreateRequest request,
             @CurrentUser LoginUser user
     ) {
         ProductOptionResult result = service.createProductOption(request.toCommand(productId, user));

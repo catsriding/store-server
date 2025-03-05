@@ -1,6 +1,6 @@
 package com.catsriding.store.domain.product;
 
-import com.catsriding.store.domain.product.model.NewProductOptionValue;
+import com.catsriding.store.domain.product.model.NewProductOption.NewProductOptionValue;
 import com.catsriding.store.domain.product.model.UpdateProductOption.UpdateProductOptionValue;
 import com.catsriding.store.domain.shared.ClockHolder;
 import java.time.LocalDateTime;
