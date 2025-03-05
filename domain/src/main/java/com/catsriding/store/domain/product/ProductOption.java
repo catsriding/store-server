@@ -106,6 +106,11 @@ public class ProductOption {
     }
 
     public static ProductOption from(NewProductOption newOption, ClockHolder clock) {
+        new InputTypeMustNotHaveValuesSpec().check(newOption);
+        new SelectTypeMustHaveValuesSpec().check(newOption);
+        new OptionPriceMustBeNonNegativeSpec().check(newOption);
+        new OptionNameLengthSpec().check(newOption);
+
         ProductOptionId optionId = ProductOptionId.withoutId();
         List<ProductOptionValue> optionValues = toNewOptionValues(
                 newOption.optionType(),
