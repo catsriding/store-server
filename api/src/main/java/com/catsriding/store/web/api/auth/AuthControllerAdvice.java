@@ -1,8 +1,9 @@
 package com.catsriding.store.web.api.auth;
 
+import static com.catsriding.store.web.shared.ApiErrorResponse.failure;
+
 import com.catsriding.store.application.auth.exception.LoginFailureException;
 import com.catsriding.store.web.support.ApiExceptionLogger;
-import com.catsriding.store.web.shared.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class AuthControllerAdvice {
         ApiExceptionLogger.logWarning("handleLoginFailure", "Login attempt failed", e, request);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.failure(null, e.getMessage()));
+                .body(failure(null, e.getMessage()));
     }
 
 }

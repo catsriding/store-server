@@ -1,11 +1,12 @@
 package com.catsriding.store.web.security.handler;
 
+import static com.catsriding.store.web.shared.ApiErrorResponse.forbidden;
 import static jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.HttpHeaders.USER_AGENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.catsriding.store.web.shared.ApiResponse;
+import com.catsriding.store.web.shared.ApiErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,7 +45,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
                 accessDeniedException.getMessage()
         );
 
-        ApiResponse<Object> errorResponse = ApiResponse.forbidden(errorMessage);
+        ApiErrorResponse<Object> errorResponse = forbidden(errorMessage);
         response.setStatus(SC_FORBIDDEN);
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(UTF_8.name());

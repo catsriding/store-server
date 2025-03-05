@@ -16,7 +16,7 @@ import com.catsriding.store.web.api.product.response.ProductDetailsResponse;
 import com.catsriding.store.web.api.product.response.ProductRegistrationResponse;
 import com.catsriding.store.web.api.product.response.ProductUpdateResponse;
 import com.catsriding.store.web.security.model.CurrentUser;
-import com.catsriding.store.web.shared.ApiResponse;
+import com.catsriding.store.web.shared.ApiSuccessResponse;
 import com.catsriding.store.web.shared.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +52,7 @@ public class ProductController {
         ProductPagedRequest request = ProductPagedRequest.from(pageNumber, pageSize, user);
         PagedData<?> pagedData = service.retrievePagedProducts(request.toCond());
         return ResponseEntity
-                .ok(ApiResponse.success(pagedData, "상품 목록을 성공적으로 조회했습니다."));
+                .ok(ApiSuccessResponse.success(pagedData, "상품 목록을 성공적으로 조회했습니다."));
     }
 
     @PostMapping
@@ -64,7 +64,7 @@ public class ProductController {
         ProductRegistrationResult result = service.registerNewProduct(request.toCommand(user));
         ProductRegistrationResponse response = ProductRegistrationResponse.from(result);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품이 성공적으로 등록되었습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품이 성공적으로 등록되었습니다."));
     }
 
     @GetMapping("/{productId}")
@@ -77,7 +77,7 @@ public class ProductController {
         ProductDetailsResult result = service.retrieveProduct(request.toCond());
         ProductDetailsResponse response = ProductDetailsResponse.from(result);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품 정보를 성공적으로 조회했습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품 정보를 성공적으로 조회했습니다."));
     }
 
     @PutMapping("/{productId}")
@@ -90,7 +90,7 @@ public class ProductController {
         ProductUpdateResult result = service.updateProduct(request.toCommand(productId, user));
         ProductUpdateResponse response = ProductUpdateResponse.from(result);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품이 성공적으로 수정되었습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품이 성공적으로 수정되었습니다."));
     }
 
     @DeleteMapping("/{productId}")
@@ -103,6 +103,6 @@ public class ProductController {
         ProductDeleteResult result = service.deleteProduct(request.toCommand());
         ProductDeleteResponse response = ProductDeleteResponse.from(result);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품이 성공적으로 삭제되었습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품이 성공적으로 삭제되었습니다."));
     }
 }

@@ -1,6 +1,6 @@
 package com.catsriding.store.web.api.auth;
 
-import static com.catsriding.store.web.shared.ApiResponse.success;
+import static com.catsriding.store.web.shared.ApiSuccessResponse.success;
 
 import com.catsriding.store.application.auth.AuthService;
 import com.catsriding.store.application.auth.model.LoginResult;

@@ -1,6 +1,6 @@
 package com.catsriding.store.web.api.product;
 
-import static com.catsriding.store.web.shared.ApiResponse.failure;
+import static com.catsriding.store.web.shared.ApiErrorResponse.failure;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 import com.catsriding.store.application.product.exception.ProductOptionLimitExceededException;

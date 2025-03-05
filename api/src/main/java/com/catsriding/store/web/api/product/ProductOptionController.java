@@ -12,7 +12,7 @@ import com.catsriding.store.web.api.product.response.ProductOptionDeleteResponse
 import com.catsriding.store.web.api.product.response.ProductOptionResponse;
 import com.catsriding.store.web.api.product.response.ProductOptionsResponse;
 import com.catsriding.store.web.security.model.CurrentUser;
-import com.catsriding.store.web.shared.ApiResponse;
+import com.catsriding.store.web.shared.ApiSuccessResponse;
 import com.catsriding.store.web.shared.LoginUser;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +48,7 @@ public class ProductOptionController {
         List<ProductOptionWithValue> results = service.retrieveOptions(request.toCond());
         ProductOptionsResponse response = ProductOptionsResponse.from(results);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품의 옵션 목록을 성공적으로 조회했습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품의 옵션 목록을 성공적으로 조회했습니다."));
     }
 
     @PostMapping
@@ -61,7 +61,7 @@ public class ProductOptionController {
         ProductOptionResult result = service.createProductOption(request.toCommand(productId, user));
         ProductOptionResponse response = ProductOptionResponse.from(result);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품 옵션이 성공적으로 생성되었습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품 옵션이 성공적으로 생성되었습니다."));
     }
 
     @PutMapping("/{optionId}")
@@ -76,7 +76,7 @@ public class ProductOptionController {
         ProductOptionResult result = service.updateProductOption(request.toCommand(productId, optionId, user));
         ProductOptionResponse response = ProductOptionResponse.from(result);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품 옵션이 성공적으로 수정되었습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품 옵션이 성공적으로 수정되었습니다."));
     }
 
     @DeleteMapping("/{optionId}")
@@ -90,6 +90,6 @@ public class ProductOptionController {
         ProductOptionDeleteResult result = service.deleteProductOption(request.toCommand());
         ProductOptionDeleteResponse response = ProductOptionDeleteResponse.from(result);
         return ResponseEntity
-                .ok(ApiResponse.success(response, "상품 옵션이 성공적으로 삭제되었습니다."));
+                .ok(ApiSuccessResponse.success(response, "상품 옵션이 성공적으로 삭제되었습니다."));
     }
 }

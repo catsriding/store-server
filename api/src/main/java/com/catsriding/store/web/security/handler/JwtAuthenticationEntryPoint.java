@@ -1,11 +1,12 @@
 package com.catsriding.store.web.security.handler;
 
+import static com.catsriding.store.web.shared.ApiErrorResponse.unauthorized;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.HttpHeaders.USER_AGENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.catsriding.store.web.shared.ApiResponse;
+import com.catsriding.store.web.shared.ApiErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,7 +45,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                 authException.getMessage()
         );
 
-        ApiResponse<Object> errorResponse = ApiResponse.unauthorized(errorMessage);
+        ApiErrorResponse<Object> errorResponse = unauthorized(errorMessage);
         response.setStatus(SC_UNAUTHORIZED);
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(UTF_8.name());
