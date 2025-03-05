@@ -4,6 +4,7 @@ import com.catsriding.store.application.product.exception.ProductOptionLimitExce
 import com.catsriding.store.application.product.exception.ProductUnavailableException;
 import com.catsriding.store.application.product.model.ProductOptionCreate;
 import com.catsriding.store.application.product.model.ProductOptionDelete;
+import com.catsriding.store.application.product.model.ProductOptionUpdate;
 import com.catsriding.store.application.product.result.ProductOptionDeleteResult;
 import com.catsriding.store.application.product.result.ProductOptionResult;
 import com.catsriding.store.domain.product.ProductOption;
@@ -55,6 +56,24 @@ public class ProductOptionService {
         return ProductOptionResult.from(productOption);
     }
 
+    public ProductOptionResult updateProductOption(ProductOptionUpdate command) {
+        ProductOptionIdentifier identifier = command.toIdentifier();
+        validateProductExistence(identifier);
+
+        ProductOption productOption = productOptionRepository.loadProductOptionWithValues(identifier);
+        productOption = productOption.updateProductOption(command.toUpdateOption(), clockHolder);
+        productOption = productOptionRepository.updateWithOptionValues(productOption);
+
+        log.info(
+                "updateProductOption: Successfully updated product option - optionId={}, productId={}, sellerId={}, optionValueIds={}",
+                identifier.optionId().id(),
+                identifier.productId().id(),
+                identifier.sellerId().id(),
+                productOption.optionValueIds());
+
+        return ProductOptionResult.from(productOption);
+    }
+
     public ProductOptionDeleteResult deleteProductOption(ProductOptionDelete command) {
         ProductOptionIdentifier identifier = command.toIdentifier();
         validateProductExistence(identifier);
@@ -92,5 +111,4 @@ public class ProductOptionService {
             throw new ProductOptionLimitExceededException("상품 옵션의 최대 개수를 초과했습니다. 하나의 상품에는 최대 3개의 옵션만 추가할 수 있습니다.");
         }
     }
-
 }

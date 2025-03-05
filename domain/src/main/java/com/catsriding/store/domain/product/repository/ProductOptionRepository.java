@@ -11,7 +11,11 @@ public interface ProductOptionRepository {
 
     ProductOption saveWithoutOptionValues(ProductOption productOption);
 
+    ProductOption updateWithOptionValues(ProductOption productOption);
+
     ProductOption loadProductOption(ProductOptionIdentifier identifier);
+
+    ProductOption loadProductOptionWithValues(ProductOptionIdentifier identifier);
 
     List<ProductOptionWithValue> loadProductOptions(ProductOptionIdentifier identifier);
 

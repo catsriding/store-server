@@ -114,7 +114,7 @@ class ProductOptionControllerOptionsApiTest extends IntegrationTestSupport {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
-        return productOptionRepository.saveWithOptionValues(option);
+        return productOptionRepository.saveWithoutOptionValues(option);
     }
 
     @Test

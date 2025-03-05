@@ -92,4 +92,8 @@ public class ProductOptionValueEntity implements Persistable<Long> {
     public Long getId() {
         return id;
     }
+
+    public boolean isActive() {
+        return !isDeleted;
+    }
 }

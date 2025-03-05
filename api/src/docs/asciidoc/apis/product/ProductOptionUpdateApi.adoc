@@ -1,0 +1,14 @@
+[[ProductOptionUpdate]]
+=== 상품 옵션 수정 API
+상품 옵션 수정 API
+
+[source,http,options="nowrap"]
+----
+PUT /products/{productId}/options/{optionId} HTTP/1.1
+----
+
+==== Request
+operation::product-option-controller-update-api-test/docs-product-option-update-api[snippets='request-headers,path-parameters,request-fields,http-request']
+
+==== Response
+operation::product-option-controller-update-api-test/docs-product-option-update-api[snippets='response-headers,response-fields,http-response']

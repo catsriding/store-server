@@ -6,6 +6,7 @@ import com.catsriding.store.application.product.result.ProductOptionResult;
 import com.catsriding.store.domain.product.model.ProductOptionWithValue;
 import com.catsriding.store.web.api.product.request.ProductOptionDeleteRequest;
 import com.catsriding.store.web.api.product.request.ProductOptionRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionUpdateRequest;
 import com.catsriding.store.web.api.product.request.ProductOptionsRequest;
 import com.catsriding.store.web.api.product.response.ProductOptionDeleteResponse;
 import com.catsriding.store.web.api.product.response.ProductOptionResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +62,21 @@ public class ProductOptionController {
         ProductOptionResponse response = ProductOptionResponse.from(result);
         return ResponseEntity
                 .ok(ApiResponse.success(response, "상품 옵션이 성공적으로 생성되었습니다."));
+    }
+
+    @PutMapping("/{optionId}")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public ResponseEntity<?> productOptionUpdateApi(
+            @PathVariable Long productId,
+            @PathVariable Long optionId,
+            @RequestBody ProductOptionUpdateRequest request,
+            @CurrentUser LoginUser user
+    ) {
+
+        ProductOptionResult result = service.updateProductOption(request.toCommand(productId, optionId, user));
+        ProductOptionResponse response = ProductOptionResponse.from(result);
+        return ResponseEntity
+                .ok(ApiResponse.success(response, "상품 옵션이 성공적으로 수정되었습니다."));
     }
 
     @DeleteMapping("/{optionId}")
