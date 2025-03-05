@@ -1,6 +1,7 @@
 package com.catsriding.store.web.api.product.response;
 
 import com.catsriding.store.domain.product.model.ProductOptionWithValue;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -8,8 +9,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Schema(description = "상품 옵션 목록 응답 데이터")
 public record ProductOptionsResponse(
+        @Schema(description = "상품 옵션 목록")
         List<ProductOptionResponse> options,
+        @Schema(description = "총 옵션 개수", example = "1")
         int totalCount
 ) {
 
@@ -44,23 +48,32 @@ public record ProductOptionsResponse(
                 .toList();
     }
 
-    private record ProductOptionResponse(
+    @Schema(description = "상품 옵션 응답 데이터")
+    public record ProductOptionResponse(
+            @Schema(description = "옵션 ID", example = "9192132359291049")
             String optionId,
+            @Schema(description = "상품 ID", example = "9187832627331241")
             String productId,
+            @Schema(description = "옵션명", example = "색상")
             String name,
+            @Schema(description = "옵션 타입: `SELECT` | `INPUT`", example = "SELECT")
             String optionType,
+            @Schema(description = "옵션 사용 가능 여부", example = "true")
             boolean usable,
+            @Schema(description = "옵션 생성 일시", example = "2025-03-05T14:30:00")
             LocalDateTime createdAt,
+            @Schema(description = "옵션 수정 일시", example = "2025-03-06T10:15:00")
             LocalDateTime updatedAt,
-            List<OptionValue> optionValues
+            @Schema(description = "옵션 값 목록: `SELECT` 타입인 경우")
+            List<ProductOptionValueResponse> optionValues
     ) {
 
         private static ProductOptionResponse from(List<ProductOptionWithValue> optionWithValues) {
             ProductOptionWithValue first = optionWithValues.getFirst();
 
-            List<OptionValue> optionValues = optionWithValues.stream()
+            List<ProductOptionValueResponse> optionValues = optionWithValues.stream()
                     .filter(result -> result.optionValueId() != null)
-                    .map(OptionValue::from)
+                    .map(ProductOptionValueResponse::from)
                     .sorted(Comparator.comparing(v -> v.optionValueId))
                     .toList();
 
@@ -77,17 +90,24 @@ public record ProductOptionsResponse(
         }
     }
 
-    private record OptionValue(
+    @Schema(description = "상품 옵션 값 응답 데이터")
+    public record ProductOptionValueResponse(
+            @Schema(description = "옵션 값 ID", example = "9192251947352233")
             String optionValueId,
+            @Schema(description = "옵션 값 이름", example = "레드")
             String name,
+            @Schema(description = "옵션 추가 가격", example = "1000")
             Integer price,
+            @Schema(description = "옵션 값 사용 가능 여부", example = "true")
             boolean usable,
+            @Schema(description = "옵션 값 생성 일시", example = "2025-03-05T14:30:00")
             LocalDateTime createdAt,
+            @Schema(description = "옵션 값 수정 일시", example = "2025-03-06T10:15:00")
             LocalDateTime updatedAt
     ) {
 
-        private static OptionValue from(ProductOptionWithValue result) {
-            return new OptionValue(
+        public static ProductOptionValueResponse from(ProductOptionWithValue result) {
+            return new ProductOptionValueResponse(
                     String.valueOf(result.optionValueId()),
                     result.optionValueName(),
                     result.optionValuePrice(),

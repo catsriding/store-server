@@ -30,7 +30,7 @@ import com.catsriding.store.domain.product.repository.ProductOptionRepository;
 import com.catsriding.store.domain.product.repository.ProductRepository;
 import com.catsriding.store.domain.user.User;
 import com.catsriding.store.web.api.product.request.ProductOptionUpdateRequest;
-import com.catsriding.store.web.api.product.request.ProductOptionUpdateRequest.ProductOptionValueRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionUpdateRequest.ProductOptionValueUpdateRequest;
 import com.catsriding.store.web.api.support.IntegrationTestSupport;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -131,9 +131,9 @@ class ProductOptionControllerUpdateApiTest extends IntegrationTestSupport {
                 "SELECT",
                 true,
                 List.of(
-                        new ProductOptionValueRequest("그린", 1400, true),
-                        new ProductOptionValueRequest("옐로우", 1100, false),
-                        new ProductOptionValueRequest("퍼플", 900, true)
+                        new ProductOptionValueUpdateRequest("그린", 1400, true),
+                        new ProductOptionValueUpdateRequest("옐로우", 1100, false),
+                        new ProductOptionValueUpdateRequest("퍼플", 900, true)
                 )
         );
 
@@ -244,10 +244,10 @@ class ProductOptionControllerUpdateApiTest extends IntegrationTestSupport {
                 "SELECT",
                 true,
                 List.of(
-                        new ProductOptionValueRequest("라이트 로스팅", 0, true),
-                        new ProductOptionValueRequest("미디엄 로스팅", 2000, true),
-                        new ProductOptionValueRequest("다크 로스팅", 4000, true),
-                        new ProductOptionValueRequest("울트라 다크 로스팅", 5000, true) // 새로운 옵션 값 추가
+                        new ProductOptionValueUpdateRequest("라이트 로스팅", 0, true),
+                        new ProductOptionValueUpdateRequest("미디엄 로스팅", 2000, true),
+                        new ProductOptionValueUpdateRequest("다크 로스팅", 4000, true),
+                        new ProductOptionValueUpdateRequest("울트라 다크 로스팅", 5000, true) // 새로운 옵션 값 추가
                 )
         );
 
@@ -298,8 +298,8 @@ class ProductOptionControllerUpdateApiTest extends IntegrationTestSupport {
                 "SELECT",
                 true,
                 List.of(
-                        new ProductOptionValueRequest("기본 포장", 0, true),
-                        new ProductOptionValueRequest("선물 포장", 2000, true)
+                        new ProductOptionValueUpdateRequest("기본 포장", 0, true),
+                        new ProductOptionValueUpdateRequest("선물 포장", 2000, true)
                 )
         );
 
@@ -400,7 +400,7 @@ class ProductOptionControllerUpdateApiTest extends IntegrationTestSupport {
                 "SELECT",
                 true,
                 List.of(
-                        new ProductOptionValueRequest("레드", 1000, true)
+                        new ProductOptionValueUpdateRequest("레드", 1000, true)
                 )
         );
 
@@ -452,10 +452,10 @@ class ProductOptionControllerUpdateApiTest extends IntegrationTestSupport {
                 "SELECT",
                 true,
                 List.of(
-                        new ProductOptionValueRequest("라이트 로스팅", 0, true),
-                        new ProductOptionValueRequest("미디엄 로스팅", 2000, true),
-                        new ProductOptionValueRequest("다크 로스팅", 4000, true),
-                        new ProductOptionValueRequest("울트라 다크 로스팅", 6000, true)
+                        new ProductOptionValueUpdateRequest("라이트 로스팅", 0, true),
+                        new ProductOptionValueUpdateRequest("미디엄 로스팅", 2000, true),
+                        new ProductOptionValueUpdateRequest("다크 로스팅", 4000, true),
+                        new ProductOptionValueUpdateRequest("울트라 다크 로스팅", 6000, true)
                 )
         );
 
@@ -528,8 +528,8 @@ class ProductOptionControllerUpdateApiTest extends IntegrationTestSupport {
                 "SELECT",
                 true,
                 List.of(
-                        new ProductOptionValueRequest("블루", 1500, true), // 기존 순서: "레드" → "블루"
-                        new ProductOptionValueRequest("레드", 1000, true)  // 변경 후: "블루" → "레드"
+                        new ProductOptionValueUpdateRequest("블루", 1500, true), // 기존 순서: "레드" → "블루"
+                        new ProductOptionValueUpdateRequest("레드", 1000, true)  // 변경 후: "블루" → "레드"
                 )
         );
 

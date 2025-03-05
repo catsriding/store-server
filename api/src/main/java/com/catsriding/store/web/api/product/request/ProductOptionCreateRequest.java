@@ -4,17 +4,23 @@ import com.catsriding.store.application.product.model.ProductOptionCreate;
 import com.catsriding.store.application.product.model.ProductOptionCreate.OptionValue;
 import com.catsriding.store.web.shared.InvalidRequestException;
 import com.catsriding.store.web.shared.LoginUser;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+@Schema(description = "상품 옵션 등록 요청 데이터")
 @Slf4j
 public record ProductOptionCreateRequest(
+        @Schema(description = "옵션명", example = "로스팅 정도")
         String name,
+        @Schema(description = "옵션 타입: `SELECT` | `INPUT`", example = "SELECT")
         String optionType,
+        @Schema(description = "옵션 사용 가능 여부", example = "true")
         boolean usable,
-        List<ProductOptionValueRequest> optionValues
+        @Schema(description = "옵션 값 목록: `SELECT` 타입일 경우 최소 1개 이상 필수")
+        List<ProductOptionValueCreateRequest> optionValues
 ) {
 
     private static final int NAME_MAX_LENGTH = 25;
@@ -71,17 +77,21 @@ public record ProductOptionCreateRequest(
         if (CollectionUtils.isEmpty(optionValues)) return List.of();
 
         return optionValues.stream()
-                .map(ProductOptionValueRequest::toCommand)
+                .map(ProductOptionValueCreateRequest::toCommand)
                 .toList();
     }
 
-    public record ProductOptionValueRequest(
+    @Schema(description = "상품 옵션 값 등록 데이터")
+    public record ProductOptionValueCreateRequest(
+            @Schema(description = "옵션 값 이름", example = "미디엄 로스팅")
             String name,
+            @Schema(description = "추가 가격: 최소 0원 이상", example = "1000")
             int price,
+            @Schema(description = "옵션 값 사용 가능 여부", example = "true")
             boolean usable
     ) {
 
-        public ProductOptionValueRequest {
+        public ProductOptionValueCreateRequest {
             if (!StringUtils.hasText(name)) {
                 log.warn("ProductOptionValueRequest: option value name is missing");
                 throw new InvalidRequestException("옵션 값의 이름을 입력해주세요.");

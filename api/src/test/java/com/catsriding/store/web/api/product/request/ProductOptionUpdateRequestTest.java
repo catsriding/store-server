@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.catsriding.store.application.product.model.ProductOptionUpdate;
 import com.catsriding.store.application.product.model.ProductOptionUpdate.OptionValue;
 import com.catsriding.store.domain.user.UserRoleType;
-import com.catsriding.store.web.api.product.request.ProductOptionUpdateRequest.ProductOptionValueRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionUpdateRequest.ProductOptionValueUpdateRequest;
 import com.catsriding.store.web.shared.InvalidRequestException;
 import com.catsriding.store.web.shared.LoginUser;
 import java.util.List;
@@ -26,8 +26,8 @@ class ProductOptionUpdateRequestTest {
         String name = "색상";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("블랙", 1000, true)
+        List<ProductOptionValueUpdateRequest> optionValues = List.of(
+                new ProductOptionValueUpdateRequest("블랙", 1000, true)
         );
 
         // When & Then
@@ -44,8 +44,8 @@ class ProductOptionUpdateRequestTest {
         String name = "";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("화이트", 2000, true)
+        List<ProductOptionValueUpdateRequest> optionValues = List.of(
+                new ProductOptionValueUpdateRequest("화이트", 2000, true)
         );
 
         // When & Then
@@ -61,8 +61,8 @@ class ProductOptionUpdateRequestTest {
         String longName = RandomString.make(26);
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("블랙", 1000, true)
+        List<ProductOptionValueUpdateRequest> optionValues = List.of(
+                new ProductOptionValueUpdateRequest("블랙", 1000, true)
         );
 
         // When & Then
@@ -78,8 +78,8 @@ class ProductOptionUpdateRequestTest {
         String name = "색상";
         String optionType = "";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("화이트", 2000, true)
+        List<ProductOptionValueUpdateRequest> optionValues = List.of(
+                new ProductOptionValueUpdateRequest("화이트", 2000, true)
         );
 
         // When & Then
@@ -95,8 +95,8 @@ class ProductOptionUpdateRequestTest {
         String name = "색상";
         String optionType = "UNKNOWN";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("화이트", 2000, true)
+        List<ProductOptionValueUpdateRequest> optionValues = List.of(
+                new ProductOptionValueUpdateRequest("화이트", 2000, true)
         );
 
         // When & Then
@@ -112,8 +112,8 @@ class ProductOptionUpdateRequestTest {
         String name = "사이즈";
         String optionType = "INPUT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("L", 0, true)
+        List<ProductOptionValueUpdateRequest> optionValues = List.of(
+                new ProductOptionValueUpdateRequest("L", 0, true)
         );
 
         // When & Then
@@ -129,7 +129,7 @@ class ProductOptionUpdateRequestTest {
         String name = "색상";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of();
+        List<ProductOptionValueUpdateRequest> optionValues = List.of();
 
         // When & Then
         assertThatThrownBy(() -> new ProductOptionUpdateRequest(name, optionType, usable, optionValues))
@@ -151,7 +151,7 @@ class ProductOptionUpdateRequestTest {
                 name,
                 optionType,
                 usable,
-                List.of(new ProductOptionValueRequest("L", negativePrice, true))))
+                List.of(new ProductOptionValueUpdateRequest("L", negativePrice, true))))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("옵션 값의 가격은 0원 이상이어야 합니다.");
     }
@@ -166,9 +166,9 @@ class ProductOptionUpdateRequestTest {
         String name = "색상";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("레드", 1000, true),
-                new ProductOptionValueRequest("블루", 2000, true)
+        List<ProductOptionValueUpdateRequest> optionValues = List.of(
+                new ProductOptionValueUpdateRequest("레드", 1000, true),
+                new ProductOptionValueUpdateRequest("블루", 2000, true)
         );
 
         ProductOptionUpdateRequest request = new ProductOptionUpdateRequest(name, optionType, usable, optionValues);

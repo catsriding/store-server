@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.catsriding.store.application.product.model.ProductOptionCreate;
 import com.catsriding.store.application.product.model.ProductOptionCreate.OptionValue;
 import com.catsriding.store.domain.user.UserRoleType;
-import com.catsriding.store.web.api.product.request.ProductOptionCreateRequest.ProductOptionValueRequest;
+import com.catsriding.store.web.api.product.request.ProductOptionCreateRequest.ProductOptionValueCreateRequest;
 import com.catsriding.store.web.shared.InvalidRequestException;
 import com.catsriding.store.web.shared.LoginUser;
 import java.util.List;
@@ -26,8 +26,8 @@ class ProductOptionCreateRequestTest {
         String name = "색상";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("블랙", 1000, true)
+        List<ProductOptionValueCreateRequest> optionValues = List.of(
+                new ProductOptionValueCreateRequest("블랙", 1000, true)
         );
 
         // When & Then
@@ -41,8 +41,8 @@ class ProductOptionCreateRequestTest {
         String name = "";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("화이트", 2000, true)
+        List<ProductOptionValueCreateRequest> optionValues = List.of(
+                new ProductOptionValueCreateRequest("화이트", 2000, true)
         );
 
         // When & Then
@@ -58,8 +58,8 @@ class ProductOptionCreateRequestTest {
         String stringWith26 = RandomString.make(26);
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("블랙", 1000, true)
+        List<ProductOptionValueCreateRequest> optionValues = List.of(
+                new ProductOptionValueCreateRequest("블랙", 1000, true)
         );
 
         // When & Then
@@ -75,8 +75,8 @@ class ProductOptionCreateRequestTest {
         String name = "색상";
         String optionType = "";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("화이트", 2000, true)
+        List<ProductOptionValueCreateRequest> optionValues = List.of(
+                new ProductOptionValueCreateRequest("화이트", 2000, true)
         );
 
         // When & Then
@@ -92,8 +92,8 @@ class ProductOptionCreateRequestTest {
         String name = "색상";
         String optionType = "UNKNOWN";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("화이트", 2000, true)
+        List<ProductOptionValueCreateRequest> optionValues = List.of(
+                new ProductOptionValueCreateRequest("화이트", 2000, true)
         );
 
         // When & Then
@@ -109,8 +109,8 @@ class ProductOptionCreateRequestTest {
         String name = "사이즈";
         String optionType = "INPUT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("L", 0, true)
+        List<ProductOptionValueCreateRequest> optionValues = List.of(
+                new ProductOptionValueCreateRequest("L", 0, true)
         );
 
         // When & Then
@@ -126,7 +126,7 @@ class ProductOptionCreateRequestTest {
         String name = "사이즈";
         String optionType = "INPUT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of();
+        List<ProductOptionValueCreateRequest> optionValues = List.of();
 
         // When & Then
         assertThatNoException().isThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues));
@@ -139,7 +139,7 @@ class ProductOptionCreateRequestTest {
         String name = "색상";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of();
+        List<ProductOptionValueCreateRequest> optionValues = List.of();
 
         // When & Then
         assertThatThrownBy(() -> new ProductOptionCreateRequest(name, optionType, usable, optionValues))
@@ -160,7 +160,7 @@ class ProductOptionCreateRequestTest {
                 name,
                 optionType,
                 usable,
-                List.of(new ProductOptionValueRequest("", 2000, true))))
+                List.of(new ProductOptionValueCreateRequest("", 2000, true))))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("옵션 값의 이름을 입력해주세요.");
     }
@@ -179,7 +179,7 @@ class ProductOptionCreateRequestTest {
                 name,
                 optionType,
                 usable,
-                List.of(new ProductOptionValueRequest(stringWith31, 2000, true))))
+                List.of(new ProductOptionValueCreateRequest(stringWith31, 2000, true))))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("옵션 값의 이름은 최대 30자까지 입력할 수 있습니다.");
     }
@@ -198,7 +198,7 @@ class ProductOptionCreateRequestTest {
                 name,
                 optionType,
                 usable,
-                List.of(new ProductOptionValueRequest("L", negativePrice, true))))
+                List.of(new ProductOptionValueCreateRequest("L", negativePrice, true))))
                 .isInstanceOf(InvalidRequestException.class)
                 .hasMessage("옵션 값의 가격은 0원 이상이어야 합니다.");
     }
@@ -212,9 +212,9 @@ class ProductOptionCreateRequestTest {
         String name = "색상";
         String optionType = "SELECT";
         boolean usable = true;
-        List<ProductOptionValueRequest> optionValues = List.of(
-                new ProductOptionValueRequest("레드", 1000, true),
-                new ProductOptionValueRequest("블루", 2000, true)
+        List<ProductOptionValueCreateRequest> optionValues = List.of(
+                new ProductOptionValueCreateRequest("레드", 1000, true),
+                new ProductOptionValueCreateRequest("블루", 2000, true)
         );
 
         ProductOptionCreateRequest request = new ProductOptionCreateRequest(name, optionType, usable, optionValues);

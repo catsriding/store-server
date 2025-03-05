@@ -1,20 +1,26 @@
 package com.catsriding.store.web.api.product.request;
 
-import com.catsriding.store.application.product.model.ProductOptionUpdate.OptionValue;
 import com.catsriding.store.application.product.model.ProductOptionUpdate;
+import com.catsriding.store.application.product.model.ProductOptionUpdate.OptionValue;
 import com.catsriding.store.web.shared.InvalidRequestException;
 import com.catsriding.store.web.shared.LoginUser;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+@Schema(description = "상품 옵션 수정 요청 데이터")
 @Slf4j
 public record ProductOptionUpdateRequest(
+        @Schema(description = "옵션명: 최대 25자", example = "로스팅 정도")
         String name,
+        @Schema(description = "옵션 타입: `SELECT` | `INPUT`", example = "SELECT")
         String optionType,
+        @Schema(description = "사용 가능 여부", example = "true")
         boolean usable,
-        List<ProductOptionValueRequest> optionValues
+        @Schema(description = "옵션 값 목록: `SELECT` 타입의 경우 필수 | `INPUT` 타입은 포함 불가")
+        List<ProductOptionValueUpdateRequest> optionValues
 ) {
 
     private static final int NAME_MAX_LENGTH = 25;
@@ -72,17 +78,21 @@ public record ProductOptionUpdateRequest(
         if (CollectionUtils.isEmpty(optionValues)) return List.of();
 
         return optionValues.stream()
-                .map(ProductOptionValueRequest::toCommand)
+                .map(ProductOptionValueUpdateRequest::toCommand)
                 .toList();
     }
 
-    public record ProductOptionValueRequest(
+    @Schema(description = "상품 옵션 값 수정 요청 데이터")
+    public record ProductOptionValueUpdateRequest(
+            @Schema(description = "옵션 값 이름: 최대 30자", example = "라이트 로스팅")
             String name,
+            @Schema(description = "옵션 추가 금액: 최소 0원 이상", example = "2000")
             int price,
+            @Schema(description = "옵션 값 사용 가능 여부", example = "true")
             boolean usable
     ) {
 
-        public ProductOptionValueRequest {
+        public ProductOptionValueUpdateRequest {
             if (!StringUtils.hasText(name)) {
                 log.warn("ProductOptionValueRequest: option value name is missing");
                 throw new InvalidRequestException("옵션 값의 이름을 입력해주세요.");
