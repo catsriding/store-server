@@ -58,7 +58,7 @@ public class UserEntity {
 
     public User toDomain() {
         return User.builder()
-                .id(UserId.withId(id()))
+                .id(UserId.withId(id))
                 .username(username)
                 .password(password)
                 .roleType(roleType)
@@ -66,13 +66,5 @@ public class UserEntity {
                 .createdAt(createdAt)
                 .updatedAt(updatedAt)
                 .build();
-    }
-
-    public Long id() {
-        return id;
-    }
-
-    public String username() {
-        return username;
     }
 }

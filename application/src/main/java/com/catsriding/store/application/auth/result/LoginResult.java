@@ -1,4 +1,4 @@
-package com.catsriding.store.application.auth.model;
+package com.catsriding.store.application.auth.result;
 
 import com.catsriding.store.domain.auth.TokenContainer;
 

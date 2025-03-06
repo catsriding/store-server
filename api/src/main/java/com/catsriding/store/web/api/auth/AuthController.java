@@ -3,7 +3,7 @@ package com.catsriding.store.web.api.auth;
 import static com.catsriding.store.web.shared.ApiSuccessResponse.success;
 
 import com.catsriding.store.application.auth.AuthService;
-import com.catsriding.store.application.auth.model.LoginResult;
+import com.catsriding.store.application.auth.result.LoginResult;
 import com.catsriding.store.web.api.auth.request.LoginRequest;
 import com.catsriding.store.web.api.auth.response.LoginResponse;
 import com.catsriding.store.web.shared.ApiErrorResponse;

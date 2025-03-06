@@ -57,15 +57,15 @@ public class User {
         return password;
     }
 
-    public boolean verifyPassword(String rawPassword, PasswordVerifier verifier) {
-        return verifier.verify(rawPassword, password);
-    }
-
     public LocalDateTime createdAt() {
         return createdAt;
     }
 
     public LocalDateTime updatedAt() {
         return updatedAt;
+    }
+
+    public boolean verifyPassword(String rawPassword, PasswordVerifier verifier) {
+        return verifier.verify(rawPassword, password);
     }
 }

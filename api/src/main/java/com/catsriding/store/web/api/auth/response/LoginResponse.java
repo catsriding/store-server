@@ -1,6 +1,6 @@
 package com.catsriding.store.web.api.auth.response;
 
-import com.catsriding.store.application.auth.model.LoginResult;
+import com.catsriding.store.application.auth.result.LoginResult;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "로그인 응답 데이터")

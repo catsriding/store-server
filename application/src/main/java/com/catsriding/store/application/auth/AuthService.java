@@ -5,7 +5,7 @@ import static com.catsriding.store.domain.user.UserStatusType.ACTIVE;
 import com.catsriding.store.application.auth.model.UserLogin;
 import com.catsriding.store.application.auth.exception.LoginFailureException;
 import com.catsriding.store.application.auth.model.AuthenticatedUser;
-import com.catsriding.store.application.auth.model.LoginResult;
+import com.catsriding.store.application.auth.result.LoginResult;
 import com.catsriding.store.domain.auth.PasswordVerifier;
 import com.catsriding.store.domain.auth.TokenClaims;
 import com.catsriding.store.domain.auth.TokenContainer;
@@ -42,7 +42,7 @@ public class AuthService {
     }
 
     public LoginResult login(UserLogin command) {
-        User user = userRepository.retrieveUserByUsername(command.username());
+        User user = userRepository.loadUserByUsername(command.username());
         verifyPassword(user, command.password());
         verifyUserStatus(user);
 

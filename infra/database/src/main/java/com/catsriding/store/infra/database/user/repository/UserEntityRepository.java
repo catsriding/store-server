@@ -28,7 +28,7 @@ public class UserEntityRepository implements UserRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public User retrieveUserByUsername(String username) {
+    public User loadUserByUsername(String username) {
         return userJpaRepository.fetchByUsername(username)
                 .map(UserEntity::toDomain)
                 .orElseThrow(() -> {

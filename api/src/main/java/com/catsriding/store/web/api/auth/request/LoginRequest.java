@@ -10,9 +10,9 @@ import org.springframework.util.StringUtils;
 @Schema(description = "로그인 요청 데이터")
 @Slf4j
 public record LoginRequest(
-        @Schema(description = "사용자 아이디: 이메일", defaultValue = "user@gmail.com")
+        @Schema(description = "사용자 아이디: 이메일", example = "user@gmail.com")
         String username,
-        @Schema(description = "사용자 비밀번호: 4자 이상, 영문/숫자/특수기호만 가능", defaultValue = "1234")
+        @Schema(description = "사용자 비밀번호: 4자 이상, 영문/숫자/특수기호만 가능", example = "1234")
         String password
 ) {
 
